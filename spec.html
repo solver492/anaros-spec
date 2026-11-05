@@ -1,0 +1,369 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Anaros Beauty Lounge — Spécification fonctionnelle & technique</title><meta name="author" content="Anaros Beauty Lounge"><style>
+@page{size:A4} *{box-sizing:border-box} html,body{margin:0;padding:0}
+body{font-family:"Nimbus Sans","DejaVu Sans",Arial,sans-serif;font-size:9.4pt;line-height:1.5;color:#1d2939;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+p{margin:0 0 7pt} strong{color:#0b1b33} a{color:#0d6b86;text-decoration:none} em{color:#334155}
+.mono{font-family:"DejaVu Sans Mono",monospace;font-size:8pt} .muted{color:#64748b} .small{font-size:8.2pt;line-height:1.45} .center{text-align:center}
+.cover{page-break-after:always;position:relative;overflow:hidden;background:linear-gradient(155deg,#1a0a14 0%,#2a1020 48%,#3a1428 100%);color:#fbeaf4;border-radius:5px;padding:30px 32px 24px;height:258mm}
+.cover::before{content:"";position:absolute;top:-160px;right:-150px;width:460px;height:460px;border-radius:50%;background:radial-gradient(circle,rgba(244,114,182,.32),transparent 63%)}
+.cover::after{content:"";position:absolute;bottom:-190px;left:-140px;width:430px;height:430px;border-radius:50%;background:radial-gradient(circle,rgba(251,191,36,.20),transparent 63%)}
+.cover-top{display:flex;align-items:center;gap:11px;position:relative;z-index:2}
+.mark{width:40px;height:40px;border-radius:11px;text-align:center;line-height:40px;font-weight:800;font-size:19pt;color:#1a0a14;background:linear-gradient(135deg,#fbbf24,#f472b6 52%,#f472b6 135%)}
+.brand-name{font-size:12pt;font-weight:800;letter-spacing:.18em} .brand-sub{font-size:6.6pt;letter-spacing:.32em;color:#c9a3b8;text-transform:uppercase;margin-top:2px}
+.cover-mid{position:relative;z-index:2;margin-top:46px}
+.cover-kicker{display:inline-block;border:1px solid rgba(244,114,182,.3);background:rgba(244,114,182,.07);color:#fbb6d8;font-size:7pt;letter-spacing:.22em;text-transform:uppercase;padding:5px 10px;border-radius:999px;margin-bottom:18px}
+.cover h1{font-family:"C059","DejaVu Serif",Georgia,serif;font-size:31pt;line-height:1.12;font-weight:bold;margin:0 0 14px;letter-spacing:-.01em}
+.cover h1 span{color:#f472b6} .cover .sub{font-size:12pt;color:#e8c9d8;line-height:1.45;max-width:132mm;margin-bottom:8px}
+.cover .sub2{font-size:9pt;color:#c9a3b8;max-width:136mm}
+.cover-rule{height:1px;background:linear-gradient(90deg,rgba(244,114,182,.7),rgba(255,255,255,.05));margin:26px 0 20px;position:relative;z-index:2}
+.cover-meta{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:12px 24px;max-width:148mm}
+.cover-meta .k{font-size:6.8pt;letter-spacing:.2em;text-transform:uppercase;color:#a888a0;margin-bottom:2px}
+.cover-meta .v{font-size:9.4pt;color:#fbeaf4}
+.cover-bottom{position:absolute;left:32px;right:32px;bottom:22px;z-index:2;border-top:1px solid rgba(255,255,255,.1);padding-top:12px;display:flex;justify-content:space-between;font-size:7.4pt;color:#a888a0}
+.cover-bottom strong{color:#fbeaf4}
+h2.sec{page-break-before:always;font-family:"C059","DejaVu Serif",Georgia,serif;font-size:19pt;line-height:1.2;color:#0b1b33;margin:0 0 4px;font-weight:bold}
+.sec-kicker{font-size:7pt;letter-spacing:.24em;text-transform:uppercase;color:#c0448a;font-weight:bold;margin-bottom:4px}
+.sec-head{border-bottom:2px solid #f0e3ec;padding-bottom:10px;margin-bottom:16px}
+.sec-head .abstract{font-size:9.6pt;color:#55657a;margin-top:7px;max-width:165mm}
+h3{font-size:11.6pt;color:#0b1b33;margin:16px 0 6px;font-weight:bold;break-after:avoid}
+h4{font-size:9.6pt;color:#12304f;margin:11px 0 4px;font-weight:bold;letter-spacing:.01em;break-after:avoid}
+h3 .n,h4 .n{color:#c0448a;margin-right:5px}
+.lead{font-size:10.6pt;line-height:1.55;color:#334155}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:10px 0 12px;break-inside:avoid}
+.kpi{border:1px solid #f0e3ec;border-radius:4px;padding:9px 10px;background:#fdf6fa;break-inside:avoid}
+.kpi .n{font-family:"C059",Georgia,serif;font-size:16pt;font-weight:bold;color:#0b1b33;line-height:1.1}
+.kpi .l{font-size:7.4pt;color:#64748b;margin-top:2px;line-height:1.3}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.card{border:1px solid #f0e3ec;border-radius:4px;padding:10px 12px;background:#fff;break-inside:avoid}
+.card h4{margin-top:0} .card p:last-child{margin-bottom:0}
+.callout,.warn,.ok{border-left:3px solid #c0448a;background:#fdf6fa;padding:9px 12px;font-size:8.8pt;color:#334155;margin:10px 0;break-inside:avoid}
+.warn{border-color:#c2740a;background:#fdf7ec} .ok{border-color:#178a63;background:#f0faf6}
+.callout .t,.warn .t,.ok .t{display:block;font-size:7pt;letter-spacing:.18em;text-transform:uppercase;margin-bottom:3px;color:#c0448a}
+.warn .t{color:#a35f08} .ok .t{color:#137a58}
+table.tbl{width:100%;border-collapse:collapse;font-size:8.3pt;margin:8px 0 12px}
+table.tbl th{background:#3a1428;color:#fbeaf4;text-align:left;font-size:7.2pt;letter-spacing:.09em;text-transform:uppercase;padding:6px 7px;font-weight:bold}
+table.tbl td{border-bottom:1px solid #f0e3ec;padding:5.5px 7px;vertical-align:top;color:#334155}
+table.tbl tr:nth-child(even) td{background:#fdf6fa} table.tbl td strong{color:#0b1b33}
+table.tbl .mono{font-size:7.4pt} table.tbl.compact td,table.tbl.compact th{padding:4px 6px}
+table.tbl thead{display:table-header-group} table.tbl tr{break-inside:avoid}
+.fig{margin:10px 0 12px;break-inside:avoid} .fig img{width:100%;border:1px solid #e0cfd9;border-radius:4px;display:block}
+.figcap{font-size:7.3pt;color:#64748b;margin-top:4px;display:flex;justify-content:space-between;gap:10px}
+.figcap .r{font-family:"DejaVu Sans Mono",monospace;font-size:6.9pt;color:#7c8ca1}
+.mod-head{border:1px solid #f0e3ec;border-left:4px solid #c0448a;border-radius:3px;padding:10px 13px;background:linear-gradient(100deg,#fdf6fa,#ffffff 70%);margin:12px 0 10px;break-inside:avoid;break-after:avoid}
+.mod-head .id{font-family:"DejaVu Sans Mono",monospace;font-size:7pt;letter-spacing:.18em;color:#c0448a}
+.mod-head h3{margin:2px 0 2px;font-family:"C059",Georgia,serif;font-size:15pt}
+.mod-head .tagline{font-size:8.6pt;color:#64748b;font-style:italic}
+.tags{margin:5px 0 0} .tag{display:inline-block;font-size:6.6pt;letter-spacing:.07em;text-transform:uppercase;border:1px solid #e0cfd9;border-radius:3px;padding:1.5px 5px;margin:0 2px 2px 0;color:#4b5f77;background:#fff}
+.tag.cy{border-color:#f9a8d4;background:#fdf2f8;color:#9d174d} .tag.am{border-color:#fde68a;background:#fefce8;color:#92400e} .tag.em{border-color:#a7f3d0;background:#ecfdf5;color:#065f46}
+ul.ticks,ul.cross{list-style:none;padding:0;margin:4px 0 8px} ul.ticks li,ul.cross li{position:relative;padding-left:13px;margin-bottom:3.2px;font-size:8.7pt;color:#334155}
+ul.ticks li::before{content:"▪";position:absolute;left:0;top:-1px;color:#c0448a;font-size:9pt}
+ul.cross li::before{content:"×";position:absolute;left:0;top:-1px;color:#b4495f;font-weight:bold}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px} .duo h4{margin-top:2px}
+.verdict{font-size:8.2pt;color:#475569;border-top:1px dashed #e8d5e0;padding-top:6px;margin-top:6px}
+.verdict strong{color:#0b1b33}
+.toc{margin-top:6px} .toc-row{display:grid;grid-template-columns:12mm 1fr auto;gap:4px;padding:4.2px 0;border-bottom:1px dotted #e8d5e0;font-size:9pt}
+.toc-row .num{font-family:"DejaVu Sans Mono",monospace;color:#c0448a;font-size:8pt}
+.toc-row .sub{color:#64748b;font-size:7.6pt;display:block;margin-top:1px}
+.toc-row .flag{font-size:7pt;color:#94a3b8} .toc-part{margin:12px 0 3px;font-size:7pt;letter-spacing:.22em;text-transform:uppercase;color:#94a3b8}
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:8px 0 12px;break-inside:avoid}
+.step{border:1px solid #f0e3ec;border-radius:3px;padding:7px 8px;background:#fdfaff;break-inside:avoid}
+.step .n{font-family:"DejaVu Sans Mono",monospace;font-size:6.8pt;color:#c0448a;letter-spacing:.1em}
+.step .t{font-size:8pt;font-weight:bold;color:#0b1b33;margin:2px 0} .step .d{font-size:7.2pt;color:#64748b;line-height:1.35}
+.diagram{border:1px solid #f0e3ec;border-radius:4px;padding:10px 12px;background:#fdfaff;margin:8px 0 12px;break-inside:avoid}
+.layer{display:grid;grid-template-columns:26mm 1fr;gap:8px;padding:6px 0;border-bottom:1px dashed #e8d5e0;align-items:start}
+.layer:last-child{border-bottom:none} .layer .k{font-size:6.8pt;letter-spacing:.12em;text-transform:uppercase;color:#7c8ca1;padding-top:3px}
+.layer .v{font-size:8.2pt;color:#334155}
+.pill{display:inline-block;border:1px solid #e0cfd9;background:#fff;border-radius:3px;padding:1.5px 5px;margin:0 2px 2px 0;font-size:7.2pt}
+.pill.hi{border-color:#f9a8d4;background:#fdf2f8;color:#9d174d} .pill.wa{border-color:#fde68a;background:#fefce8;color:#92400e}
+.note{font-size:7.6pt;color:#7c8ca1} .pagebreak{page-break-before:always} .avoid{break-inside:avoid}
+.gallery{display:grid;grid-template-columns:1fr 1fr;gap:8px} .gallery figure{margin:0;break-inside:avoid}
+.gallery img{width:100%;border:1px solid #e0cfd9;border-radius:3px;display:block}
+.gallery figcaption{font-size:6.9pt;color:#64748b;margin-top:2px}
+.kv{display:grid;grid-template-columns:44mm 1fr;gap:2px 8px;font-size:8.6pt} .kv .k{color:#64748b} .kv .v{color:#0b1b33}
+.sig{margin-top:22px;display:grid;grid-template-columns:1fr 1fr;gap:24px;font-size:8pt;color:#64748b}
+.sig .line{border-top:1px solid #94a3b8;padding-top:4px;margin-top:24px}
+.code{font-family:"DejaVu Sans Mono",monospace;font-size:7.4pt;background:#1a0a14;color:#fbeaf4;padding:9px 11px;border-radius:3px;white-space:pre-wrap;line-height:1.45;margin:7px 0 10px}
+.code .c{color:#c9a3b8} .chk{list-style:none;padding:0;margin:4px 0} .chk li{position:relative;padding-left:16px;margin-bottom:3px;font-size:8.5pt}
+.chk li::before{content:"☐";position:absolute;left:0;top:-1px;color:#c0448a}
+</style></head><body>
+
+<div class="cover">
+  <div class="cover-top"><div class="mark">A</div><div><div class="brand-name">ANAROS</div><div class="brand-sub">Beauty Lounge · SaaS</div></div></div>
+  <div class="cover-mid">
+    <div class="cover-kicker">Spécification produit · Édition 2026</div>
+    <h1>Application de gestion<br/><span>d'institut de beauté</span></h1>
+    <p class="sub">Spécification fonctionnelle et technique complète — 8 modules, multi-tenant, React + Express + PostgreSQL.</p>
+    <p class="sub2">Document de référence pour la démonstration et l'intégration du produit.</p>
+  </div>
+  <div class="cover-rule"></div>
+  <div class="cover-meta">
+    <div><div class="k">Version</div><div class="v">1.0 — finale</div></div>
+    <div><div class="k">Date</div><div class="v">5 novembre 2026</div></div>
+    <div><div class="k">Application</div><div class="v">https://springgreen-cheetah-495703.hostingersite.com/</div></div>
+    <div><div class="k">Périmètre</div><div class="v">Gestion de rendez-vous, clients, prestations, équipe, planning</div></div>
+    <div><div class="k">Stack</div><div class="v">React + Vite · Express · PostgreSQL · Drizzle ORM</div></div>
+    <div><div class="k">Diffusion</div><div class="v">Interne · direction, produit, développement</div></div>
+  </div>
+  <div class="cover-bottom"><div><strong>springgreen-cheetah-495703.hostingersite.com</strong> — document généré à partir du dossier produit</div><div>8 modules · 3 rôles · multi-tenant</div></div>
+</div>
+
+<h2 class="sec" style="page-break-before:avoid">Sommaire</h2>
+<div class="sec-head"><div class="sec-kicker">Vue d'ensemble</div><div class="abstract">Seize chapitres, de la vision produit au guide d'intégration de la vidéo.</div></div>
+<div class="toc">
+  <div class="toc-part">Comprendre le produit</div>
+  <div class="toc-row"><span class="num">01</span><span>Résumé exécutif</span><span class="flag">Stratégie</span></div>
+  <div class="toc-row"><span class="num">02</span><span>Contexte et problème métier</span><span class="flag">Stratégie</span></div>
+  <div class="toc-row"><span class="num">03</span><span>Utilisateurs et rôles</span><span class="flag">Produit</span></div>
+  <div class="toc-row"><span class="num">04</span><span>Cartographie fonctionnelle</span><span class="flag">Produit</span></div>
+  <div class="toc-part">Spécification fonctionnelle</div>
+  <div class="toc-row"><span class="num">05</span><span>Analyse module par module (8 modules)</span><span class="flag">Cœur</span></div>
+  <div class="toc-row"><span class="num">06</span><span>Parcours utilisateurs</span><span class="flag">Cœur</span></div>
+  <div class="toc-row"><span class="num">07</span><span>Modèle de données</span><span class="flag">Cœur</span></div>
+  <div class="toc-part">Spécification technique</div>
+  <div class="toc-row"><span class="num">08</span><span>Architecture technique</span><span class="flag">Technique</span></div>
+  <div class="toc-row"><span class="num">09</span><span>Design system</span><span class="flag">Design</span></div>
+  <div class="toc-row"><span class="num">10</span><span>Sécurité et conformité</span><span class="flag">Risque</span></div>
+  <div class="toc-part">Décider et exploiter</div>
+  <div class="toc-row"><span class="num">11</span><span>Audit de maturité</span><span class="flag">Audit</span></div>
+  <div class="toc-row"><span class="num">12</span><span>Feuille de route</span><span class="flag">Plan</span></div>
+  <div class="toc-row"><span class="num">13</span><span>Exploitation et déploiement</span><span class="flag">Ops</span></div>
+  <div class="toc-row"><span class="num">14</span><span>Guide d'intégration vidéo</span><span class="flag">Production</span></div>
+  <div class="toc-row"><span class="num">15</span><span>Annexes</span><span class="flag">Référence</span></div>
+</div>
+
+<h2 class="sec">01 · Résumé exécutif</h2>
+<div class="sec-head"><div class="sec-kicker">Vue d'ensemble</div><div class="abstract">Anaros Beauty Lounge est une application SaaS de gestion complète pour instituts de beauté et de bien-être.</div></div>
+<h3><span class="n">1.1</span>Fiche d'identité</h3>
+<table class="tbl"><tbody>
+<tr><td style="width:34%"><strong>Nom</strong></td><td>Anaros Beauty Lounge</td></tr>
+<tr><td><strong>Nature</strong></td><td>Application web SaaS multi-tenant</td></tr>
+<tr><td><strong>Métier</strong></td><td>Gestion de rendez-vous, clients, prestations, équipe, planning</td></tr>
+<tr><td><strong>Marché</strong></td><td>Instituts de beauté et de bien-être au Maroc (MAD)</td></tr>
+<tr><td><strong>Stack</strong></td><td>React + Vite (TS) · Express + Node.js · PostgreSQL · Drizzle ORM</td></tr>
+<tr><td><strong>Rôles</strong></td><td>Administrateur · Réception · Personnel soins</td></tr>
+<tr><td><strong>Modules</strong></td><td>8 modules fonctionnels</td></tr>
+<tr><td><strong>Application</strong></td><td>https://springgreen-cheetah-495703.hostingersite.com/</td></tr>
+<tr><td><strong>État</strong></td><td>Démonstrateur avancé, multi-tenant, prêt pour la démonstration</td></tr>
+</tbody></table>
+<h3><span class="n">1.2</span>Ce que le produit fait</h3>
+<div class="grid2">
+<div class="card"><h4 style="color:#127a58">Livré</h4><ul class="ticks">
+<li>Onboarding en 4 étapes avec tarifs et durées par catégorie.</li>
+<li>Rendez-vous avec vue jour/semaine/mois, conflits gérés.</li>
+<li>Fiches clients avec historique des visites.</li>
+<li>Catalogue de prestations par catégorie, prix et durée.</li>
+<li>Gestion d'équipe et compétences par service.</li>
+<li>Planning personnel par employé.</li>
+<li>Tableau de bord (CA du jour, CA du mois, RDV, top prestations).</li>
+<li>Multi-tenant avec isolation complète.</li>
+<li>Journal d'activité chronologique.</li>
+</ul></div>
+<div class="card"><h4 style="color:#a83a55">Hors périmètre</h4><ul class="cross">
+<li>Paiement en ligne et facturation.</li>
+<li>SMS / rappels automatiques aux clients.</li>
+<li>Application mobile native.</li>
+<li>Gestion de stock de produits.</li>
+<li>Comptabilité et export comptable.</li>
+<li>Site de réservation en ligne pour les clients.</li>
+</ul></div>
+</div>
+
+<h2 class="sec">02 · Contexte et problème métier</h2>
+<div class="sec-head"><div class="sec-kicker">Pourquoi ce produit existe</div><div class="abstract">Les instituts de beauté gèrent encore rendez-vous, clients et équipe avec des agendas papier et des outils dispersés.</div></div>
+<p>Un institut type réunit un gérant, une réception et plusieurs esthéticiennes. Les rendez-vous se prennent par téléphone, les clients sont notés sur des fiches, le planning est un agenda partagé et le chiffre d'affaires se calcule en fin de mois. Les doubles réservations, les oublis et la perte de clients fidèles sont le quotidien.</p>
+<h3><span class="n">2.1</span>Cinq douleurs, cinq réponses</h3>
+<table class="tbl"><thead><tr><th>Douleur</th><th>Conséquence</th><th>Réponse Anaros</th></tr></thead><tbody>
+<tr><td><strong>Agenda papier</strong></td><td>Doubles réservations, oublis</td><td>Calendrier interactif avec gestion des conflits</td></tr>
+<tr><td><strong>Clients dispersés</strong></td><td>Pas d'historique, pas de fidélisation</td><td>Fiche client complète avec historique</td></tr>
+<tr><td><strong>Prestations non structurées</strong></td><td>Prix et durées variables</td><td>Catalogue par catégorie, prix et durée fixés</td></tr>
+<tr><td><strong>Équipe non coordonnée</strong></td><td>Mauvaise affectation des soins</td><td>Compétences par service, planning personnel</td></tr>
+<tr><td><strong>Pas de vision d'activité</strong></td><td>Chiffre d'affaires inconnu</td><td>Tableau de bord avec CA jour/mois et top prestations</td></tr>
+</tbody></table>
+
+<h2 class="sec">03 · Utilisateurs et rôles</h2>
+<div class="sec-head"><div class="sec-kicker">À qui s'adresse le produit</div><div class="abstract">Trois rôles avec accès différenciés.</div></div>
+<table class="tbl"><thead><tr><th>Rôle</th><th>Objectif</th><th>Accès</th></tr></thead><tbody>
+<tr><td><strong>Administrateur (gérant)</strong></td><td>Piloter l'institut</td><td>Utilisateurs, prestations, catégories, compétences, dashboard, journal</td></tr>
+<tr><td><strong>Réception</strong></td><td>Gérer le flux clients</td><td>Rendez-vous, clients, agenda</td></tr>
+<tr><td><strong>Personnel soins</strong></td><td>Réaliser les soins</td><td>Son planning personnel, ses rendez-vous</td></tr>
+</tbody></table>
+
+<h2 class="sec">04 · Cartographie fonctionnelle</h2>
+<div class="sec-head"><div class="sec-kicker">Vue système</div><div class="abstract">Huit modules, trois rôles, multi-tenant.</div></div>
+<table class="tbl"><thead><tr><th>#</th><th>Module</th><th>Maturité</th></tr></thead><tbody>
+<tr><td>01</td><td><strong>Authentification &amp; rôles</strong></td><td><span class="tag em">Complet</span></td></tr>
+<tr><td>02</td><td><strong>Tableau de bord</strong></td><td><span class="tag em">Complet</span></td></tr>
+<tr><td>03</td><td><strong>Calendrier &amp; rendez-vous</strong></td><td><span class="tag em">Complet</span></td></tr>
+<tr><td>04</td><td><strong>Gestion des clients</strong></td><td><span class="tag em">Complet</span></td></tr>
+<tr><td>05</td><td><strong>Catalogue de prestations</strong></td><td><span class="tag em">Complet</span></td></tr>
+<tr><td>06</td><td><strong>Équipe &amp; compétences</strong></td><td><span class="tag em">Complet</span></td></tr>
+<tr><td>07</td><td><strong>Mon planning personnel</strong></td><td><span class="tag em">Complet</span></td></tr>
+<tr><td>08</td><td><strong>Multi-tenant &amp; utilisateurs</strong></td><td><span class="tag em">Complet</span></td></tr>
+</tbody></table>
+<p class="note">Plus : journal d'activité chronologique et onboarding en 4 étapes (compte, centre, catégories avec tarifs/durées, équipe).</p>
+
+<h2 class="sec">05 · Analyse module par module</h2>
+<div class="sec-head"><div class="sec-kicker">Spécification fonctionnelle détaillée</div><div class="abstract">Huit modules : objectif, fonctions, données, limites.</div></div>
+
+<div class="mod-head"><div class="id">MODULE 01</div><h3>Authentification &amp; rôles</h3><div class="tagline">Sécuriser l'accès à l'institut</div><div class="tags"><span class="tag cy">Auth</span><span class="tag">Rôles</span><span class="tag em">Complet</span></div></div>
+<p>Connexion par email et mot de passe. Trois rôles distincts avec accès différencié. L'administrateur gère les utilisateurs, prestations, catégories et compétences.</p>
+<div class="duo"><div><h4>Fonctions</h4><ul class="ticks"><li>Connexion email + mot de passe.</li><li>Trois rôles : Admin, Réception, Personnel.</li><li>Accès différencié par module.</li><li>Création, modification, désactivation de comptes.</li><li>Réinitialisation de mot de passe.</li><li>Onboarding en 4 étapes lors de la création du centre.</li></ul></div>
+<div><h4>Données</h4><ul class="ticks"><li>Utilisateur : email, mot de passe hashé, rôle, centre.</li><li>Centre : nom, description, devise (MAD), heures ouverture/fermeture.</li><li>Multi-tenant : isolation complète par centre.</li></ul></div></div>
+
+<div class="mod-head"><div class="id">MODULE 02</div><h3>Tableau de bord</h3><div class="tagline">La journée de l'institut en un écran</div><div class="tags"><span class="tag">KPI</span><span class="tag em">Complet</span></div></div>
+<p>Vue synthétique de l'activité du jour : rendez-vous à venir, statistiques de fréquentation, alertes. CA du jour, CA du mois, nombre de RDV du jour, top des prestations.</p>
+
+<div class="mod-head"><div class="id">MODULE 03</div><h3>Calendrier &amp; rendez-vous</h3><div class="tagline">Zéro double réservation</div><div class="tags"><span class="tag cy">FullCalendar</span><span class="tag">CRUD</span><span class="tag em">Complet</span></div></div>
+<p>Vue jour, semaine et mois. Prise de rendez-vous avec choix du service, du client, du membre du personnel et du créneau. Gestion des conflits. Modification et annulation.</p>
+<div class="duo"><div><h4>Fonctions</h4><ul class="ticks"><li>Vue jour / semaine / mois (FullCalendar).</li><li>Création de RDV avec service, client, employé, créneau.</li><li>Détection des conflits (pas de double réservation).</li><li>Modification et annulation.</li><li>Sélection de l'employé via liste déroulante.</li></ul></div>
+<div><h4>Données</h4><ul class="ticks"><li>RDV : client, prestation, employé, date/heure début et fin, statut.</li><li>Conflit si même employé ou même cabine sur créneau chevauchant.</li></ul></div></div>
+
+<div class="mod-head"><div class="id">MODULE 04</div><h3>Gestion des clients</h3><div class="tagline">Un dossier client, pas un carnet d'adresses</div><div class="tags"><span class="tag">CRUD</span><span class="tag">Historique</span><span class="tag em">Complet</span></div></div>
+<p>Fiche client complète : nom, téléphone, email, historique des visites et des prestations reçues. Recherche rapide par nom ou téléphone.</p>
+
+<div class="mod-head"><div class="id">MODULE 05</div><h3>Catalogue de prestations</h3><div class="tagline">Structurer l'offre de l'institut</div><div class="tags"><span class="tag">CRUD</span><span class="tag">Catégories</span><span class="tag em">Complet</span></div></div>
+<p>Liste des soins avec prix et durée, organisée par catégories (soins visage, corps, épilation, onglerie, etc.). Activation/désactivation. Onboarding : tarifs et durées par catégorie (ex. Soin visage hydratant 45 min — 60 MAD).</p>
+
+<div class="mod-head"><div class="id">MODULE 06</div><h3>Équipe &amp; compétences</h3><div class="tagline">Qui fait quoi</div><div class="tags"><span class="tag">Profils</span><span class="tag">Compétences</span><span class="tag em">Complet</span></div></div>
+<p>Profils du personnel (nom, photo, rôle). Compétences par service : chaque employé est associé aux prestations qu'il maîtrise. Affectation selon compétences et disponibilité.</p>
+
+<div class="mod-head"><div class="id">MODULE 07</div><h3>Mon planning personnel</h3><div class="tagline">Ma journée en un coup d'œil</div><div class="tags"><span class="tag">Planning</span><span class="tag em">Complet</span></div></div>
+<p>Vue personnelle pour chaque membre du personnel : ses rendez-vous assignés du jour et de la semaine, avec heure, client et prestation.</p>
+
+<div class="mod-head"><div class="id">MODULE 08</div><h3>Multi-tenant &amp; utilisateurs</h3><div class="tagline">Plusieurs instituts, une instance</div><div class="tags"><span class="tag">Multi-tenant</span><span class="tag">CRUD users</span><span class="tag em">Complet</span></div></div>
+<p>Plusieurs instituts coexistent avec isolation complète des données. Création, modification, désactivation de comptes. Attribution et changement de rôle. Journal d'activité chronologique.</p>
+
+<h2 class="sec">06 · Parcours utilisateurs</h2>
+<div class="sec-head"><div class="sec-kicker">Les gestes réels</div><div class="abstract">Trois parcours : onboarding, réception, personnel.</div></div>
+<h3><span class="n">6.1</span>Onboarding d'un nouvel institut</h3>
+<div class="flow">
+<div class="step"><div class="n">ÉTAPE 1</div><div class="t">Compte</div><div class="d">Prénom, nom, téléphone, email, mot de passe.</div></div>
+<div class="step"><div class="n">ÉTAPE 2</div><div class="t">Centre</div><div class="d">Nom, description, devise (MAD), heures d'ouverture.</div></div>
+<div class="step"><div class="n">ÉTAPE 3</div><div class="t">Catégories &amp; tarifs</div><div class="d">Sélection des catégories, prix et durées par prestation.</div></div>
+<div class="step"><div class="n">ÉTAPE 4</div><div class="t">Équipe</div><div class="d">Ajout des membres, mot de passe auto-généré.</div></div>
+</div>
+<h3><span class="n">6.2</span>Réception — prise de rendez-vous</h3>
+<p>La réception sélectionne un client, un service, un employé compétent et un créneau. Le système bloque les conflits. Le RDV apparaît dans l'agenda de l'employé.</p>
+<h3><span class="n">6.3</span>Personnel — consultation du planning</h3>
+<p>Chaque esthéticienne voit son planning du jour et de la semaine avec heure, client et prestation.</p>
+
+<h2 class="sec">07 · Modèle de données</h2>
+<div class="sec-head"><div class="sec-kicker">Structure de l'information</div><div class="abstract">Entités principales et isolation multi-tenant.</div></div>
+<table class="tbl"><thead><tr><th>Entité</th><th>Champs principaux</th><th>Contraintes</th></tr></thead><tbody>
+<tr><td><strong>Centre</strong></td><td class="mono">id, name, description, currency, openTime, closeTime</td><td>Multi-tenant root</td></tr>
+<tr><td><strong>User</strong></td><td class="mono">id, email, passwordHash, firstName, lastName, role, centreId</td><td>3 rôles</td></tr>
+<tr><td><strong>Client</strong></td><td class="mono">id, name, phone, email, centreId</td><td>Par centre</td></tr>
+<tr><td><strong>Prestation</strong></td><td class="mono">id, categoryId, name, price, duration, active, centreId</td><td>Par catégorie</td></tr>
+<tr><td><strong>Category</strong></td><td class="mono">id, name, centreId</td><td>Par centre</td></tr>
+<tr><td><strong>RendezVous</strong></td><td class="mono">id, clientId, prestationId, employeId, start, end, status, centreId</td><td>Pas de conflit employé/cabine</td></tr>
+<tr><td><strong>Competence</strong></td><td class="mono">employeId, prestationId</td><td>N-N</td></tr>
+<tr><td><strong>ActivityLog</strong></td><td class="mono">id, userId, action, timestamp, centreId</td><td>Chronologique</td></tr>
+</tbody></table>
+
+<h2 class="sec">08 · Architecture technique</h2>
+<div class="sec-head"><div class="sec-kicker">Comment c'est construit</div><div class="abstract">Full-stack TypeScript, séparation claire front/back, déployé sur Hostinger.</div></div>
+<div class="diagram">
+<div class="layer"><div class="k">Frontend</div><div class="v"><span class="pill hi">React</span><span class="pill">Vite</span><span class="pill">TypeScript</span><span class="pill">FullCalendar</span></div></div>
+<div class="layer"><div class="k">Backend</div><div class="v"><span class="pill wa">Express</span><span class="pill">Node.js</span><span class="pill">API REST</span><span class="pill">Zod validation</span></div></div>
+<div class="layer"><div class="k">Données</div><div class="v"><span class="pill">PostgreSQL</span><span class="pill">Drizzle ORM</span><span class="pill">Multi-tenant</span></div></div>
+<div class="layer"><div class="k">Auth</div><div class="v"><span class="pill">Email + mot de passe</span><span class="pill">Rôles</span><span class="pill">Sessions</span></div></div>
+<div class="layer"><div class="k">Déploiement</div><div class="v"><span class="pill hi">Hostinger Node.js</span></div></div>
+</div>
+<h3><span class="n">8.1</span>Stack</h3>
+<table class="tbl compact"><thead><tr><th>Dépendance</th><th>Rôle</th></tr></thead><tbody>
+<tr><td>React + Vite</td><td>Interface utilisateur</td></tr>
+<tr><td>Express + Node.js</td><td>API REST</td></tr>
+<tr><td>PostgreSQL + Drizzle ORM</td><td>Persistance relationnelle</td></tr>
+<tr><td>Zod</td><td>Validation des données</td></tr>
+<tr><td>FullCalendar</td><td>Agenda interactif</td></tr>
+</tbody></table>
+
+<h2 class="sec">09 · Design system</h2>
+<div class="sec-head"><div class="sec-kicker">Identité visuelle</div><div class="abstract">Thème sombre avec accents rose et ambre, typographie Inter.</div></div>
+<p>Palette rose (#f472b6) et ambre (#fbbf24) sur fond sombre. Typographie Inter. Composants : cartes en verre, badges, modules avec bordure colorée. Responsive mobile-first.</p>
+
+<h2 class="sec">10 · Sécurité et conformité</h2>
+<div class="sec-head"><div class="sec-kicker">Ce qui est protégé</div><div class="abstract">Authentification par rôle, isolation multi-tenant, données personnelles.</div></div>
+<ul class="ticks">
+<li>Authentification email + mot de passe avec hashage.</li>
+<li>Trois rôles avec accès différencié.</li>
+<li>Isolation complète des données par centre (multi-tenant).</li>
+<li>Sessions serveur avec cookies sécurisés.</li>
+<li>Validation Zod côté client et serveur.</li>
+</ul>
+<div class="warn"><span class="t">Vigilance</span>Le mot de passe généré automatiquement pour le personnel doit être changé à la première connexion. Aucune politique de conservation des données personnelles (RGPD / loi 09-08) n'est formalisée.</div>
+
+<h2 class="sec">11 · Audit de maturité</h2>
+<div class="sec-head"><div class="sec-kicker">Ce qui est fini</div><div class="abstract">Huit modules, tous fonctionnels.</div></div>
+<table class="tbl"><thead><tr><th>Module</th><th>Note</th><th>État</th></tr></thead><tbody>
+<tr><td>Authentification &amp; rôles</td><td><strong>4/5</strong></td><td><span class="tag em">Complet</span></td></tr>
+<tr><td>Tableau de bord</td><td><strong>4/5</strong></td><td><span class="tag em">Complet</span></td></tr>
+<tr><td>Calendrier &amp; RDV</td><td><strong>4.5/5</strong></td><td><span class="tag em">Complet</span></td></tr>
+<tr><td>Gestion clients</td><td><strong>4/5</strong></td><td><span class="tag em">Complet</span></td></tr>
+<tr><td>Catalogue prestations</td><td><strong>4/5</strong></td><td><span class="tag em">Complet</span></td></tr>
+<tr><td>Équipe &amp; compétences</td><td><strong>4/5</strong></td><td><span class="tag em">Complet</span></td></tr>
+<tr><td>Planning personnel</td><td><strong>4/5</strong></td><td><span class="tag em">Complet</span></td></tr>
+<tr><td>Multi-tenant</td><td><strong>4.5/5</strong></td><td><span class="tag em">Complet</span></td></tr>
+</tbody></table>
+<div class="kpis" style="grid-template-columns:repeat(4,1fr)">
+<div class="kpi"><div class="n">4.1<span style="font-size:9pt">/5</span></div><div class="l">maturité moyenne</div></div>
+<div class="kpi"><div class="n">8<span style="font-size:9pt">/8</span></div><div class="l">modules complets</div></div>
+<div class="kpi"><div class="n">3</div><div class="l">rôles utilisateurs</div></div>
+<div class="kpi"><div class="n">Multi</div><div class="l">tenant</div></div>
+</div>
+
+<h2 class="sec">12 · Feuille de route</h2>
+<div class="sec-head"><div class="sec-kicker">Évolutions possibles</div><div class="abstract">Améliorations pour passer à l'échelle.</div></div>
+<table class="tbl compact"><thead><tr><th>Phase</th><th>Livrables</th></tr></thead><tbody>
+<tr><td><strong>Phase 1</strong></td><td>Paiement en ligne, facturation, rappels SMS, site de réservation client.</td></tr>
+<tr><td><strong>Phase 2</strong></td><td>Application mobile native, gestion de stock produits, comptabilité.</td></tr>
+<tr><td><strong>Phase 3</strong></td><td>Multi-site avancé, analytics prédictifs, intégrations tierces.</td></tr>
+</tbody></table>
+
+<h2 class="sec">13 · Exploitation et déploiement</h2>
+<div class="sec-head"><div class="sec-kicker">Faire tourner le produit</div><div class="abstract">Hébergement Node.js sur Hostinger, HTTPS actif.</div></div>
+<table class="tbl compact"><tbody>
+<tr><td style="width:30%"><strong>Domaine</strong></td><td>springgreen-cheetah-495703.hostingersite.com</td></tr>
+<tr><td><strong>Type</strong></td><td>Node.js (Express + React + PostgreSQL)</td></tr>
+<tr><td><strong>Base de données</strong></td><td>PostgreSQL (Hostinger)</td></tr>
+<tr><td><strong>HTTPS</strong></td><td>Actif</td></tr>
+</tbody></table>
+
+<h2 class="sec">14 · Guide d'intégration vidéo</h2>
+<div class="sec-head"><div class="sec-kicker">Production</div><div class="abstract">Vidéo Canva déjà intégrée dans la page descriptive.</div></div>
+<p>La page descriptive contient un iframe Canva 16:9. URL d'embed : <span class="mono">https://www.canva.com/design/DAHZ8FhK-Ic/Sw0AtsdB-8w26iPa5Qr0Tw/watch?embed</span>. Pour remplacer, modifier l'attribut <span class="mono">src</span> de l'iframe dans la section vidéo.</p>
+
+<h2 class="sec">15 · Annexes</h2>
+<div class="sec-head"><div class="sec-kicker">Références</div><div class="abstract">Captures et glossaire.</div></div>
+<h3><span class="n">15.1</span>Captures (14 écrans)</h3>
+<div class="gallery">
+<figure><img src="assets/01.jpg"><figcaption>01 · Connexion / Inscription</figcaption></figure>
+<figure><img src="assets/02.jpg"><figcaption>02 · Infos du centre</figcaption></figure>
+<figure><img src="assets/03.jpg"><figcaption>03 · Catégories de services</figcaption></figure>
+<figure><img src="assets/04.jpg"><figcaption>04 · Prix et durées</figcaption></figure>
+<figure><img src="assets/05.jpg"><figcaption>05 · Ajout de l'équipe</figcaption></figure>
+<figure><img src="assets/06.jpg"><figcaption>06 · Gestion des utilisateurs</figcaption></figure>
+<figure><img src="assets/07.jpg"><figcaption>07 · Catalogue prestations</figcaption></figure>
+<figure><img src="assets/08.jpg"><figcaption>08 · Journal d'activité</figcaption></figure>
+<figure><img src="assets/09.jpg"><figcaption>09 · Agenda par employé</figcaption></figure>
+<figure><img src="assets/10.jpg"><figcaption>10 · Création de RDV</figcaption></figure>
+<figure><img src="assets/11.jpg"><figcaption>11 · Création de prestation</figcaption></figure>
+<figure><img src="assets/12.jpg"><figcaption>12 · Prestations par catégorie</figcaption></figure>
+<figure><img src="assets/13.jpg"><figcaption>13 · Agenda hebdomadaire</figcaption></figure>
+<figure><img src="assets/14.jpg"><figcaption>14 · Tableau de bord</figcaption></figure>
+</div>
+
+<h3><span class="n">15.2</span>Glossaire</h3>
+<table class="tbl compact"><tbody>
+<tr><td><strong>RDV</strong></td><td>Rendez-vous.</td></tr>
+<tr><td><strong>Multi-tenant</strong></td><td>Plusieurs instituts isolés dans la même instance.</td></tr>
+<tr><td><strong>Prestation</strong></td><td>Soin proposé par l'institut avec prix et durée.</td></tr>
+<tr><td><strong>Compétence</strong></td><td>Association employé ↔ prestation maîtrisée.</td></tr>
+</tbody></table>
+
+<div style="margin-top:26px;border-top:2px solid #f0e3ec;padding-top:14px" class="small muted">
+<strong style="color:#0b1b33">Anaros Beauty Lounge — Spécification fonctionnelle et technique · v1.0 · 5 novembre 2026.</strong><br/>
+Application : https://springgreen-cheetah-495703.hostingersite.com/ · Captures : 14 écrans<br/>
+Document établi à partir du dossier produit et de l'application déployée. Données de démonstration.
+</div>
+</body></html>
