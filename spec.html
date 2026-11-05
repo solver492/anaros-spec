@@ -1,369 +1,1192 @@
-<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Anaros Beauty Lounge — Spécification fonctionnelle & technique</title><meta name="author" content="Anaros Beauty Lounge"><style>
-@page{size:A4} *{box-sizing:border-box} html,body{margin:0;padding:0}
-body{font-family:"Nimbus Sans","DejaVu Sans",Arial,sans-serif;font-size:9.4pt;line-height:1.5;color:#1d2939;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-p{margin:0 0 7pt} strong{color:#0b1b33} a{color:#0d6b86;text-decoration:none} em{color:#334155}
-.mono{font-family:"DejaVu Sans Mono",monospace;font-size:8pt} .muted{color:#64748b} .small{font-size:8.2pt;line-height:1.45} .center{text-align:center}
-.cover{page-break-after:always;position:relative;overflow:hidden;background:linear-gradient(155deg,#1a0a14 0%,#2a1020 48%,#3a1428 100%);color:#fbeaf4;border-radius:5px;padding:30px 32px 24px;height:258mm}
-.cover::before{content:"";position:absolute;top:-160px;right:-150px;width:460px;height:460px;border-radius:50%;background:radial-gradient(circle,rgba(244,114,182,.32),transparent 63%)}
-.cover::after{content:"";position:absolute;bottom:-190px;left:-140px;width:430px;height:430px;border-radius:50%;background:radial-gradient(circle,rgba(251,191,36,.20),transparent 63%)}
-.cover-top{display:flex;align-items:center;gap:11px;position:relative;z-index:2}
-.mark{width:40px;height:40px;border-radius:11px;text-align:center;line-height:40px;font-weight:800;font-size:19pt;color:#1a0a14;background:linear-gradient(135deg,#fbbf24,#f472b6 52%,#f472b6 135%)}
-.brand-name{font-size:12pt;font-weight:800;letter-spacing:.18em} .brand-sub{font-size:6.6pt;letter-spacing:.32em;color:#c9a3b8;text-transform:uppercase;margin-top:2px}
-.cover-mid{position:relative;z-index:2;margin-top:46px}
-.cover-kicker{display:inline-block;border:1px solid rgba(244,114,182,.3);background:rgba(244,114,182,.07);color:#fbb6d8;font-size:7pt;letter-spacing:.22em;text-transform:uppercase;padding:5px 10px;border-radius:999px;margin-bottom:18px}
-.cover h1{font-family:"C059","DejaVu Serif",Georgia,serif;font-size:31pt;line-height:1.12;font-weight:bold;margin:0 0 14px;letter-spacing:-.01em}
-.cover h1 span{color:#f472b6} .cover .sub{font-size:12pt;color:#e8c9d8;line-height:1.45;max-width:132mm;margin-bottom:8px}
-.cover .sub2{font-size:9pt;color:#c9a3b8;max-width:136mm}
-.cover-rule{height:1px;background:linear-gradient(90deg,rgba(244,114,182,.7),rgba(255,255,255,.05));margin:26px 0 20px;position:relative;z-index:2}
-.cover-meta{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:12px 24px;max-width:148mm}
-.cover-meta .k{font-size:6.8pt;letter-spacing:.2em;text-transform:uppercase;color:#a888a0;margin-bottom:2px}
-.cover-meta .v{font-size:9.4pt;color:#fbeaf4}
-.cover-bottom{position:absolute;left:32px;right:32px;bottom:22px;z-index:2;border-top:1px solid rgba(255,255,255,.1);padding-top:12px;display:flex;justify-content:space-between;font-size:7.4pt;color:#a888a0}
-.cover-bottom strong{color:#fbeaf4}
-h2.sec{page-break-before:always;font-family:"C059","DejaVu Serif",Georgia,serif;font-size:19pt;line-height:1.2;color:#0b1b33;margin:0 0 4px;font-weight:bold}
-.sec-kicker{font-size:7pt;letter-spacing:.24em;text-transform:uppercase;color:#c0448a;font-weight:bold;margin-bottom:4px}
-.sec-head{border-bottom:2px solid #f0e3ec;padding-bottom:10px;margin-bottom:16px}
-.sec-head .abstract{font-size:9.6pt;color:#55657a;margin-top:7px;max-width:165mm}
-h3{font-size:11.6pt;color:#0b1b33;margin:16px 0 6px;font-weight:bold;break-after:avoid}
-h4{font-size:9.6pt;color:#12304f;margin:11px 0 4px;font-weight:bold;letter-spacing:.01em;break-after:avoid}
-h3 .n,h4 .n{color:#c0448a;margin-right:5px}
-.lead{font-size:10.6pt;line-height:1.55;color:#334155}
-.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:10px 0 12px;break-inside:avoid}
-.kpi{border:1px solid #f0e3ec;border-radius:4px;padding:9px 10px;background:#fdf6fa;break-inside:avoid}
-.kpi .n{font-family:"C059",Georgia,serif;font-size:16pt;font-weight:bold;color:#0b1b33;line-height:1.1}
-.kpi .l{font-size:7.4pt;color:#64748b;margin-top:2px;line-height:1.3}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
-.card{border:1px solid #f0e3ec;border-radius:4px;padding:10px 12px;background:#fff;break-inside:avoid}
-.card h4{margin-top:0} .card p:last-child{margin-bottom:0}
-.callout,.warn,.ok{border-left:3px solid #c0448a;background:#fdf6fa;padding:9px 12px;font-size:8.8pt;color:#334155;margin:10px 0;break-inside:avoid}
-.warn{border-color:#c2740a;background:#fdf7ec} .ok{border-color:#178a63;background:#f0faf6}
-.callout .t,.warn .t,.ok .t{display:block;font-size:7pt;letter-spacing:.18em;text-transform:uppercase;margin-bottom:3px;color:#c0448a}
-.warn .t{color:#a35f08} .ok .t{color:#137a58}
-table.tbl{width:100%;border-collapse:collapse;font-size:8.3pt;margin:8px 0 12px}
-table.tbl th{background:#3a1428;color:#fbeaf4;text-align:left;font-size:7.2pt;letter-spacing:.09em;text-transform:uppercase;padding:6px 7px;font-weight:bold}
-table.tbl td{border-bottom:1px solid #f0e3ec;padding:5.5px 7px;vertical-align:top;color:#334155}
-table.tbl tr:nth-child(even) td{background:#fdf6fa} table.tbl td strong{color:#0b1b33}
-table.tbl .mono{font-size:7.4pt} table.tbl.compact td,table.tbl.compact th{padding:4px 6px}
-table.tbl thead{display:table-header-group} table.tbl tr{break-inside:avoid}
-.fig{margin:10px 0 12px;break-inside:avoid} .fig img{width:100%;border:1px solid #e0cfd9;border-radius:4px;display:block}
-.figcap{font-size:7.3pt;color:#64748b;margin-top:4px;display:flex;justify-content:space-between;gap:10px}
-.figcap .r{font-family:"DejaVu Sans Mono",monospace;font-size:6.9pt;color:#7c8ca1}
-.mod-head{border:1px solid #f0e3ec;border-left:4px solid #c0448a;border-radius:3px;padding:10px 13px;background:linear-gradient(100deg,#fdf6fa,#ffffff 70%);margin:12px 0 10px;break-inside:avoid;break-after:avoid}
-.mod-head .id{font-family:"DejaVu Sans Mono",monospace;font-size:7pt;letter-spacing:.18em;color:#c0448a}
-.mod-head h3{margin:2px 0 2px;font-family:"C059",Georgia,serif;font-size:15pt}
-.mod-head .tagline{font-size:8.6pt;color:#64748b;font-style:italic}
-.tags{margin:5px 0 0} .tag{display:inline-block;font-size:6.6pt;letter-spacing:.07em;text-transform:uppercase;border:1px solid #e0cfd9;border-radius:3px;padding:1.5px 5px;margin:0 2px 2px 0;color:#4b5f77;background:#fff}
-.tag.cy{border-color:#f9a8d4;background:#fdf2f8;color:#9d174d} .tag.am{border-color:#fde68a;background:#fefce8;color:#92400e} .tag.em{border-color:#a7f3d0;background:#ecfdf5;color:#065f46}
-ul.ticks,ul.cross{list-style:none;padding:0;margin:4px 0 8px} ul.ticks li,ul.cross li{position:relative;padding-left:13px;margin-bottom:3.2px;font-size:8.7pt;color:#334155}
-ul.ticks li::before{content:"▪";position:absolute;left:0;top:-1px;color:#c0448a;font-size:9pt}
-ul.cross li::before{content:"×";position:absolute;left:0;top:-1px;color:#b4495f;font-weight:bold}
-.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px} .duo h4{margin-top:2px}
-.verdict{font-size:8.2pt;color:#475569;border-top:1px dashed #e8d5e0;padding-top:6px;margin-top:6px}
-.verdict strong{color:#0b1b33}
-.toc{margin-top:6px} .toc-row{display:grid;grid-template-columns:12mm 1fr auto;gap:4px;padding:4.2px 0;border-bottom:1px dotted #e8d5e0;font-size:9pt}
-.toc-row .num{font-family:"DejaVu Sans Mono",monospace;color:#c0448a;font-size:8pt}
-.toc-row .sub{color:#64748b;font-size:7.6pt;display:block;margin-top:1px}
-.toc-row .flag{font-size:7pt;color:#94a3b8} .toc-part{margin:12px 0 3px;font-size:7pt;letter-spacing:.22em;text-transform:uppercase;color:#94a3b8}
-.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:8px 0 12px;break-inside:avoid}
-.step{border:1px solid #f0e3ec;border-radius:3px;padding:7px 8px;background:#fdfaff;break-inside:avoid}
-.step .n{font-family:"DejaVu Sans Mono",monospace;font-size:6.8pt;color:#c0448a;letter-spacing:.1em}
-.step .t{font-size:8pt;font-weight:bold;color:#0b1b33;margin:2px 0} .step .d{font-size:7.2pt;color:#64748b;line-height:1.35}
-.diagram{border:1px solid #f0e3ec;border-radius:4px;padding:10px 12px;background:#fdfaff;margin:8px 0 12px;break-inside:avoid}
-.layer{display:grid;grid-template-columns:26mm 1fr;gap:8px;padding:6px 0;border-bottom:1px dashed #e8d5e0;align-items:start}
-.layer:last-child{border-bottom:none} .layer .k{font-size:6.8pt;letter-spacing:.12em;text-transform:uppercase;color:#7c8ca1;padding-top:3px}
-.layer .v{font-size:8.2pt;color:#334155}
-.pill{display:inline-block;border:1px solid #e0cfd9;background:#fff;border-radius:3px;padding:1.5px 5px;margin:0 2px 2px 0;font-size:7.2pt}
-.pill.hi{border-color:#f9a8d4;background:#fdf2f8;color:#9d174d} .pill.wa{border-color:#fde68a;background:#fefce8;color:#92400e}
-.note{font-size:7.6pt;color:#7c8ca1} .pagebreak{page-break-before:always} .avoid{break-inside:avoid}
-.gallery{display:grid;grid-template-columns:1fr 1fr;gap:8px} .gallery figure{margin:0;break-inside:avoid}
-.gallery img{width:100%;border:1px solid #e0cfd9;border-radius:3px;display:block}
-.gallery figcaption{font-size:6.9pt;color:#64748b;margin-top:2px}
-.kv{display:grid;grid-template-columns:44mm 1fr;gap:2px 8px;font-size:8.6pt} .kv .k{color:#64748b} .kv .v{color:#0b1b33}
-.sig{margin-top:22px;display:grid;grid-template-columns:1fr 1fr;gap:24px;font-size:8pt;color:#64748b}
-.sig .line{border-top:1px solid #94a3b8;padding-top:4px;margin-top:24px}
-.code{font-family:"DejaVu Sans Mono",monospace;font-size:7.4pt;background:#1a0a14;color:#fbeaf4;padding:9px 11px;border-radius:3px;white-space:pre-wrap;line-height:1.45;margin:7px 0 10px}
-.code .c{color:#c9a3b8} .chk{list-style:none;padding:0;margin:4px 0} .chk li{position:relative;padding-left:16px;margin-bottom:3px;font-size:8.5pt}
-.chk li::before{content:"☐";position:absolute;left:0;top:-1px;color:#c0448a}
-</style></head><body>
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<title>Anaros Beauty Lounge — Spécification fonctionnelle & technique</title>
+<meta name="author" content="DSL Studio" />
+<meta name="description" content="Spécification fonctionnelle et technique du logiciel de gestion d'institut de beauté Anaros Beauty Lounge." />
+<style>
+  @page { size: A4; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Nimbus Sans", "DejaVu Sans", Arial, sans-serif;
+    font-size: 9.4pt; line-height: 1.5; color: #1d2939;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  p { margin: 0 0 7pt; }
+  strong { color: #0b1b33; }
+  a { color: #9c355c; text-decoration: none; }
+  em { color: #334155; }
+  .mono { font-family: "DejaVu Sans Mono", monospace; font-size: 8pt; }
+  .muted { color: #64748b; }
+  .small { font-size: 8.2pt; line-height: 1.45; }
+  .center { text-align: center; }
 
+  /* ---------- COUVERTURE ---------- */
+  .cover {
+    page-break-after: always; position: relative; overflow: hidden;
+    background: linear-gradient(155deg, #170710 0%, #240b18 48%, #2b0f1e 100%);
+    color: #fbeef3; border-radius: 5px; padding: 30px 32px 24px; height: 258mm;
+  }
+  .cover::before {
+    content: ""; position: absolute; top: -160px; right: -150px;
+    width: 460px; height: 460px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(240,130,170,.30), transparent 63%);
+  }
+  .cover::after {
+    content: ""; position: absolute; bottom: -190px; left: -140px;
+    width: 430px; height: 430px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(232,192,122,.20), transparent 63%);
+  }
+  .cover-top { display: flex; align-items: center; gap: 11px; position: relative; z-index: 2; }
+  .mark {
+    width: 40px; height: 40px; border-radius: 11px; text-align: center; line-height: 40px;
+    font-weight: 800; font-size: 19pt; color: #2a0d18;
+    background: linear-gradient(135deg, #ffd0dd, #f095b4 52%, #e8c07a 135%);
+  }
+  .brand-name { font-size: 12pt; font-weight: 800; letter-spacing: .18em; }
+  .brand-sub { font-size: 6.6pt; letter-spacing: .32em; color: #b48e9c; text-transform: uppercase; margin-top: 2px; }
+  .cover-mid { position: relative; z-index: 2; margin-top: 46px; }
+  .cover-kicker {
+    display: inline-block; border: 1px solid rgba(240,150,185,.32); background: rgba(240,150,185,.08);
+    color: #ffc6d8; font-size: 7pt; letter-spacing: .22em; text-transform: uppercase;
+    padding: 5px 10px; border-radius: 999px; margin-bottom: 18px;
+  }
+  .cover h1 {
+    font-family: "C059", "DejaVu Serif", Georgia, serif;
+    font-size: 31pt; line-height: 1.12; font-weight: bold; margin: 0 0 14px; letter-spacing: -.01em;
+  }
+  .cover h1 span { color: #f095b4; }
+  .cover .sub {
+    font-size: 12pt; color: #e6cfd8; line-height: 1.45; max-width: 132mm; margin-bottom: 8px;
+  }
+  .cover .sub2 { font-size: 9pt; color: #bd9aa8; max-width: 136mm; }
+  .cover-rule { height: 1px; background: linear-gradient(90deg, rgba(240,150,185,.72), rgba(255,255,255,.05)); margin: 26px 0 20px; position: relative; z-index: 2; }
+  .cover-meta { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 24px; max-width: 148mm; }
+  .cover-meta .k { font-size: 6.8pt; letter-spacing: .2em; text-transform: uppercase; color: #b08795; margin-bottom: 2px; }
+  .cover-meta .v { font-size: 9.4pt; color: #f3e2e8; }
+  .cover-bottom {
+    position: absolute; left: 32px; right: 32px; bottom: 22px; z-index: 2;
+    border-top: 1px solid rgba(255,255,255,.1); padding-top: 12px;
+    display: flex; justify-content: space-between; font-size: 7.4pt; color: #b08a98;
+  }
+  .cover-bottom strong { color: #f6dde5; }
+
+  /* ---------- TITRES ---------- */
+  h2.sec {
+    page-break-before: always; font-family: "C059", "DejaVu Serif", Georgia, serif;
+    font-size: 19pt; line-height: 1.2; color: #0b1b33; margin: 0 0 4px; font-weight: bold;
+  }
+  .sec-kicker {
+    font-size: 7pt; letter-spacing: .24em; text-transform: uppercase; color: #b0456e;
+    font-weight: bold; margin-bottom: 4px;
+  }
+  .sec-head { border-bottom: 2px solid #e3eaf3; padding-bottom: 10px; margin-bottom: 16px; }
+  .sec-head .abstract { font-size: 9.6pt; color: #55657a; margin-top: 7px; max-width: 165mm; }
+  h3 { font-size: 11.6pt; color: #0b1b33; margin: 16px 0 6px; font-weight: bold; break-after: avoid; }
+  h4 { font-size: 9.6pt; color: #12304f; margin: 11px 0 4px; font-weight: bold; letter-spacing: .01em; break-after: avoid; }
+  h3 .n, h4 .n { color: #b0456e; margin-right: 5px; }
+
+  /* ---------- BLOCS ---------- */
+  .lead { font-size: 10.6pt; line-height: 1.55; color: #334155; }
+  .kpis { break-inside: avoid; display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; margin: 10px 0 12px; }
+  .kpi { border: 1px solid #e0e7f0; border-radius: 4px; padding: 9px 10px; background: #f8fafc; break-inside: avoid; }
+  .kpi .n { font-family: "C059", Georgia, serif; font-size: 16pt; font-weight: bold; color: #0b1b33; line-height: 1.1; }
+  .kpi .l { font-size: 7.4pt; color: #64748b; margin-top: 2px; line-height: 1.3; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; }
+  .card { border: 1px solid #e0e7f0; border-radius: 4px; padding: 10px 12px; background: #fff; break-inside: avoid; }
+  .card h4 { margin-top: 0; }
+  .card p:last-child { margin-bottom: 0; }
+  .callout, .warn, .ok {
+    border-left: 3px solid #b0456e; background: #fdf6f8; padding: 9px 12px;
+    font-size: 8.8pt; color: #334155; margin: 10px 0; break-inside: avoid;
+  }
+  .warn { border-color: #c2740a; background: #fdf7ec; }
+  .ok { border-color: #178a63; background: #f0faf6; }
+  .callout strong, .warn strong, .ok strong { color: #0b1b33; }
+  .callout .t, .warn .t, .ok .t { display: block; font-size: 7pt; letter-spacing: .18em; text-transform: uppercase; margin-bottom: 3px; color: #b0456e; }
+  .warn .t { color: #a35f08; } .ok .t { color: #137a58; }
+
+  /* ---------- TABLEAUX ---------- */
+  table.tbl { width: 100%; border-collapse: collapse; font-size: 8.3pt; margin: 8px 0 12px; }
+  table.tbl th {
+    background: #2a1020; color: #e8f1fa; text-align: left; font-size: 7.2pt;
+    letter-spacing: .09em; text-transform: uppercase; padding: 6px 7px; font-weight: bold;
+  }
+  table.tbl td { border-bottom: 1px solid #e3eaf3; padding: 5.5px 7px; vertical-align: top; color: #334155; }
+  table.tbl tr:nth-child(even) td { background: #f8fafc; }
+  table.tbl td strong { color: #0b1b33; }
+  table.tbl .mono { font-size: 7.4pt; }
+  table.tbl.compact td, table.tbl.compact th { padding: 4px 6px; }
+  table.tbl.tight td, table.tbl.tight th { padding: 3px 6px; }
+  table.tbl.tight { font-size: 8pt; }
+  table.tbl thead { display: table-header-group; }
+  table.tbl tr { break-inside: avoid; }
+
+  /* ---------- FIGURES ---------- */
+  .fig { margin: 10px 0 12px; break-inside: avoid; }
+  .fig img { width: 100%; border: 1px solid #cfd9e6; border-radius: 4px; display: block; }
+  .figcap { font-size: 7.3pt; color: #64748b; margin-top: 4px; display: flex; justify-content: space-between; gap: 10px; }
+  .figcap .r { font-family: "DejaVu Sans Mono", monospace; font-size: 6.9pt; color: #7c8ca1; }
+
+  /* ---------- MODULES ---------- */
+  .mod-head {
+    border: 1px solid #dce5ef; border-left: 4px solid #b0456e; border-radius: 3px;
+    padding: 10px 13px; background: linear-gradient(100deg, #f4f9fc, #ffffff 70%);
+    margin: 12px 0 10px; break-inside: avoid; break-after: avoid;
+  }
+  .mod-head.pb { page-break-before: always; }
+  .mod-head .id { font-family: "DejaVu Sans Mono", monospace; font-size: 7pt; letter-spacing: .18em; color: #b0456e; }
+  .mod-head h3 { margin: 2px 0 2px; font-family: "C059", Georgia, serif; font-size: 15pt; }
+  .mod-head .tagline { font-size: 8.6pt; color: #64748b; font-style: italic; }
+  .tags { margin: 5px 0 0; }
+  .tag {
+    display: inline-block; font-size: 6.6pt; letter-spacing: .07em; text-transform: uppercase;
+    border: 1px solid #d3dfec; border-radius: 3px; padding: 1.5px 5px; margin: 0 2px 2px 0; color: #4b5f77; background: #fff;
+  }
+  .tag.cy { border-color: #f2c2d3; background: #fdf2f6; color: #9c355c; }
+  .tag.am { border-color: #ecd49e; background: #fdf8ec; color: #96630c; }
+  .tag.em { border-color: #a9ddc9; background: #effaf5; color: #127a58; }
+  .tag.ro { border-color: #f0c0cb; background: #fdf0f3; color: #a83a55; }
+  ul.ticks, ul.cross { list-style: none; padding: 0; margin: 4px 0 8px; }
+  ul.ticks li, ul.cross li { position: relative; padding-left: 13px; margin-bottom: 3.2px; font-size: 8.7pt; color: #334155; }
+  ul.ticks li::before { content: "▪"; position: absolute; left: 0; top: -1px; color: #b0456e; font-size: 9pt; }
+  ul.cross li::before { content: "×"; position: absolute; left: 0; top: -1px; color: #b4495f; font-weight: bold; }
+  .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .duo h4 { margin-top: 2px; }
+  .verdict { break-inside: avoid; font-size: 8.2pt; color: #475569; border-top: 1px dashed #dbe4ef; padding-top: 6px; margin-top: 6px; }
+  .verdict strong { color: #0b1b33; }
+
+  /* ---------- SOMMAIRE ---------- */
+  .toc { margin-top: 6px; }
+  .toc-row { display: grid; grid-template-columns: 12mm 1fr auto; gap: 4px; padding: 4.2px 0; border-bottom: 1px dotted #dbe4ef; font-size: 9pt; }
+  .toc-row .num { font-family: "DejaVu Sans Mono", monospace; color: #b0456e; font-size: 8pt; }
+  .toc-row .sub { color: #64748b; font-size: 7.6pt; display: block; margin-top: 1px; }
+  .toc-row .flag { font-size: 7pt; color: #94a3b8; }
+  .toc-part { margin: 12px 0 3px; font-size: 7pt; letter-spacing: .22em; text-transform: uppercase; color: #94a3b8; }
+
+  /* ---------- DIVERS ---------- */
+  .flow { break-inside: avoid; display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 8px 0 12px; }
+  .step { border: 1px solid #e0e7f0; border-radius: 3px; padding: 7px 8px; background: #fbfdff; break-inside: avoid; }
+  .step .n { font-family: "DejaVu Sans Mono", monospace; font-size: 6.8pt; color: #b0456e; letter-spacing: .1em; }
+  .step .t { font-size: 8pt; font-weight: bold; color: #0b1b33; margin: 2px 0; }
+  .step .d { font-size: 7.2pt; color: #64748b; line-height: 1.35; }
+  .diagram { border: 1px solid #dce5ef; border-radius: 4px; padding: 10px 12px; background: #f9fbfd; margin: 8px 0 12px; break-inside: avoid; }
+  .layer { display: grid; grid-template-columns: 26mm 1fr; gap: 8px; padding: 6px 0; border-bottom: 1px dashed #dde6f0; align-items: start; }
+  .layer:last-child { border-bottom: none; }
+  .layer .k { font-size: 6.8pt; letter-spacing: .12em; text-transform: uppercase; color: #7c8ca1; padding-top: 3px; }
+  .layer .v { font-size: 8.2pt; color: #334155; }
+  .pill { display: inline-block; border: 1px solid #d3dfec; background: #fff; border-radius: 3px; padding: 1.5px 5px; margin: 0 2px 2px 0; font-size: 7.2pt; }
+  .pill.hi { border-color: #eec0d2; background: #fdf4f7; color: #9c355c; }
+  .pill.wa { border-color: #ecd49e; background: #fdf8ec; color: #8a5a08; }
+  .note { font-size: 7.6pt; color: #7c8ca1; }
+  .pagebreak { page-break-before: always; }
+  .avoid { break-inside: avoid; }
+  .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .gallery figure { margin: 0; break-inside: avoid; }
+  .gallery img { width: 100%; border: 1px solid #cfd9e6; border-radius: 3px; display: block; }
+  .gallery figcaption { font-size: 6.9pt; color: #64748b; margin-top: 2px; }
+  .kv { display: grid; grid-template-columns: 44mm 1fr; gap: 2px 8px; font-size: 8.6pt; }
+  .kv .k { color: #64748b; }
+  .kv .v { color: #0b1b33; }
+  .sig { margin-top: 22px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; font-size: 8pt; color: #64748b; }
+  .sig .line { border-top: 1px solid #94a3b8; padding-top: 4px; margin-top: 24px; }
+  .code {
+    font-family: "DejaVu Sans Mono", monospace; font-size: 7.4pt; background: #0f1c2e; color: #d7e6f5;
+    padding: 9px 11px; border-radius: 3px; white-space: pre-wrap; line-height: 1.45; margin: 7px 0 10px;
+  }
+  .code .c { color: #7f9bb8; }
+  .chk { list-style: none; padding: 0; margin: 4px 0; }
+  .chk li { position: relative; padding-left: 16px; margin-bottom: 3px; font-size: 8.5pt; }
+  .chk li::before { content: "☐"; position: absolute; left: 0; top: -1px; color: #b0456e; }
+</style>
+</head>
+<body>
 <div class="cover">
-  <div class="cover-top"><div class="mark">A</div><div><div class="brand-name">ANAROS</div><div class="brand-sub">Beauty Lounge · SaaS</div></div></div>
+  <div class="cover-top">
+    <div class="mark">A</div>
+    <div>
+      <div class="brand-name">ANAROS BEAUTY LOUNGE</div>
+      <div class="brand-sub">Beauty Operating System · Édition 2026</div>
+    </div>
+  </div>
+
   <div class="cover-mid">
-    <div class="cover-kicker">Spécification produit · Édition 2026</div>
-    <h1>Application de gestion<br/><span>d'institut de beauté</span></h1>
-    <p class="sub">Spécification fonctionnelle et technique complète — 8 modules, multi-tenant, React + Express + PostgreSQL.</p>
-    <p class="sub2">Document de référence pour la démonstration et l'intégration du produit.</p>
+    <div class="cover-kicker">Spécification fonctionnelle &amp; technique</div>
+    <h1>Le planning,<br />les clientes,<br /><span>l'équipe.</span></h1>
+    <p class="sub">Logiciel de gestion pour institut de beauté : onboarding guidé, agenda par employée, clientes, catalogue de prestations et rôles.</p>
+    <p class="sub2">Analyse du code déployé, dictionnaires de données, parcours utilisateurs, audit de sécurité et feuille de route.</p>
   </div>
+
   <div class="cover-rule"></div>
+
   <div class="cover-meta">
-    <div><div class="k">Version</div><div class="v">1.0 — finale</div></div>
-    <div><div class="k">Date</div><div class="v">5 novembre 2026</div></div>
-    <div><div class="k">Application</div><div class="v">https://springgreen-cheetah-495703.hostingersite.com/</div></div>
-    <div><div class="k">Périmètre</div><div class="v">Gestion de rendez-vous, clients, prestations, équipe, planning</div></div>
-    <div><div class="k">Stack</div><div class="v">React + Vite · Express · PostgreSQL · Drizzle ORM</div></div>
-    <div><div class="k">Diffusion</div><div class="v">Interne · direction, produit, développement</div></div>
+    <div><div class="k">Produit</div><div class="v">Anaros Beauty Lounge</div></div>
+    <div><div class="k">Nature du document</div><div class="v">Dossier produit complet</div></div>
+    <div><div class="k">Version analysée</div><div class="v">Déploiement du 5 novembre 2026</div></div>
+    <div><div class="k">Périmètre</div><div class="v">14 écrans · 7 tables · 4 rôles</div></div>
+    <div><div class="k">Stack</div><div class="v">React · Express · PostgreSQL</div></div>
+    <div><div class="k">Application</div><div class="v">springgreen-cheetah-495703.hostingersite.com</div></div>
   </div>
-  <div class="cover-bottom"><div><strong>springgreen-cheetah-495703.hostingersite.com</strong> — document généré à partir du dossier produit</div><div>8 modules · 3 rôles · multi-tenant</div></div>
+
+  <div class="cover-bottom">
+    <div><strong>Anaros Beauty Lounge</strong> · Spécification produit</div>
+    <div>16 chapitres · Document de référence</div>
+  </div>
+</div>
+<!-- ============================ SOMMAIRE ============================ -->
+<h2 class="sec" style="page-break-before:avoid">Sommaire</h2>
+<div class="sec-head">
+  <div class="abstract">Seize chapitres, de la vision produit au guide d'intégration de la vidéo. Les chapitres 05 et 07 constituent le cœur de la spécification fonctionnelle.</div>
 </div>
 
-<h2 class="sec" style="page-break-before:avoid">Sommaire</h2>
-<div class="sec-head"><div class="sec-kicker">Vue d'ensemble</div><div class="abstract">Seize chapitres, de la vision produit au guide d'intégration de la vidéo.</div></div>
 <div class="toc">
   <div class="toc-part">Comprendre le produit</div>
-  <div class="toc-row"><span class="num">01</span><span>Résumé exécutif</span><span class="flag">Stratégie</span></div>
-  <div class="toc-row"><span class="num">02</span><span>Contexte et problème métier</span><span class="flag">Stratégie</span></div>
-  <div class="toc-row"><span class="num">03</span><span>Utilisateurs et rôles</span><span class="flag">Produit</span></div>
-  <div class="toc-row"><span class="num">04</span><span>Cartographie fonctionnelle</span><span class="flag">Produit</span></div>
+  <div class="toc-row"><span class="num">01</span><span>Résumé exécutif<span class="sub">Fiche d'identité, chiffres clés, périmètre réel, ce que le produit fait et ne fait pas</span></span><span class="flag">Stratégie</span></div>
+  <div class="toc-row"><span class="num">02</span><span>Contexte et problème métier<span class="sub">Douleurs d'un institut, promesse, principes de conception</span></span><span class="flag">Stratégie</span></div>
+  <div class="toc-row"><span class="num">03</span><span>Utilisateurs et rôles<span class="sub">Personas, quatre rôles, matrice des droits et réalité de l'accès</span></span><span class="flag">Produit</span></div>
+  <div class="toc-row"><span class="num">04</span><span>Cartographie fonctionnelle<span class="sub">Les 9 modules, la navigation, le cycle de vie d'un rendez-vous</span></span><span class="flag">Produit</span></div>
+
   <div class="toc-part">Spécification fonctionnelle</div>
-  <div class="toc-row"><span class="num">05</span><span>Analyse module par module (8 modules)</span><span class="flag">Cœur</span></div>
-  <div class="toc-row"><span class="num">06</span><span>Parcours utilisateurs</span><span class="flag">Cœur</span></div>
-  <div class="toc-row"><span class="num">07</span><span>Modèle de données</span><span class="flag">Cœur</span></div>
+  <div class="toc-row"><span class="num">05</span><span>Analyse module par module<span class="sub">9 modules : objectif, fonctions, dictionnaire de données, règles, limites</span></span><span class="flag">Cœur</span></div>
+  <div class="toc-row"><span class="num">06</span><span>Parcours utilisateurs<span class="sub">Mise en service, accueil, réservation, planning terrain, fidélisation</span></span><span class="flag">Cœur</span></div>
+  <div class="toc-row"><span class="num">07</span><span>Modèle de données<span class="sub">7 tables, dictionnaires de champs, relations, isolation, anomalies</span></span><span class="flag">Cœur</span></div>
+
   <div class="toc-part">Spécification technique</div>
-  <div class="toc-row"><span class="num">08</span><span>Architecture technique</span><span class="flag">Technique</span></div>
-  <div class="toc-row"><span class="num">09</span><span>Design system</span><span class="flag">Design</span></div>
-  <div class="toc-row"><span class="num">10</span><span>Sécurité et conformité</span><span class="flag">Risque</span></div>
+  <div class="toc-row"><span class="num">08</span><span>Architecture technique<span class="sub">Couches, stack, API, build, routage, performance</span></span><span class="flag">Technique</span></div>
+  <div class="toc-row"><span class="num">09</span><span>Design system<span class="sub">Tokens, typographie, couleurs, composants, états, responsive</span></span><span class="flag">Design</span></div>
+  <div class="toc-row"><span class="num">10</span><span>Onboarding et mise en service<span class="sub">4 étapes, génération des mots de passe, données créées</span></span><span class="flag">Produit</span></div>
+  <div class="toc-row"><span class="num">11</span><span>Sécurité, données et conformité<span class="sub">Mots de passe, sessions, isolation, risques, recommandations</span></span><span class="flag">Risque</span></div>
+
   <div class="toc-part">Décider et exploiter</div>
-  <div class="toc-row"><span class="num">11</span><span>Audit de maturité</span><span class="flag">Audit</span></div>
-  <div class="toc-row"><span class="num">12</span><span>Feuille de route</span><span class="flag">Plan</span></div>
-  <div class="toc-row"><span class="num">13</span><span>Exploitation et déploiement</span><span class="flag">Ops</span></div>
-  <div class="toc-row"><span class="num">14</span><span>Guide d'intégration vidéo</span><span class="flag">Production</span></div>
-  <div class="toc-row"><span class="num">15</span><span>Annexes</span><span class="flag">Référence</span></div>
+  <div class="toc-row"><span class="num">12</span><span>Audit de maturité<span class="sub">Notation par module, dette technique, qualité du code</span></span><span class="flag">Audit</span></div>
+  <div class="toc-row"><span class="num">13</span><span>Feuille de route<span class="sub">3 phases, livrables, critères d'acceptation</span></span><span class="flag">Plan</span></div>
+  <div class="toc-row"><span class="num">14</span><span>Exploitation et déploiement<span class="sub">Passenger, Node.js, PostgreSQL, sauvegarde, checklist</span></span><span class="flag">Ops</span></div>
+  <div class="toc-row"><span class="num">15</span><span>Guide d'intégration vidéo<span class="sub">Spécifications, iframe, storyboard, script voix off</span></span><span class="flag">Production</span></div>
+  <div class="toc-row"><span class="num">16</span><span>Annexes<span class="sub">Routes, dépendances, captures, glossaire, traçabilité</span></span><span class="flag">Référence</span></div>
 </div>
 
+<div class="callout" style="margin-top:18px">
+  <span class="t">Conventions de lecture</span>
+  Les montants sont exprimés dans la devise du centre, configurée à l'inscription (le jeu de démonstration utilise le dirham marocain, MAD). Les chemins commençant par <span class="mono">/</span> désignent des routes de l'application. Les statuts « Complet », « Fonctionnel », « Partiel » et « Phase 2 » sont définis au chapitre 12. Les captures proviennent de la version déployée le 5 novembre 2026.
+</div>
+
+<!-- ============================ 01 RESUME ============================ -->
 <h2 class="sec">01 · Résumé exécutif</h2>
-<div class="sec-head"><div class="sec-kicker">Vue d'ensemble</div><div class="abstract">Anaros Beauty Lounge est une application SaaS de gestion complète pour instituts de beauté et de bien-être.</div></div>
-<h3><span class="n">1.1</span>Fiche d'identité</h3>
-<table class="tbl"><tbody>
-<tr><td style="width:34%"><strong>Nom</strong></td><td>Anaros Beauty Lounge</td></tr>
-<tr><td><strong>Nature</strong></td><td>Application web SaaS multi-tenant</td></tr>
-<tr><td><strong>Métier</strong></td><td>Gestion de rendez-vous, clients, prestations, équipe, planning</td></tr>
-<tr><td><strong>Marché</strong></td><td>Instituts de beauté et de bien-être au Maroc (MAD)</td></tr>
-<tr><td><strong>Stack</strong></td><td>React + Vite (TS) · Express + Node.js · PostgreSQL · Drizzle ORM</td></tr>
-<tr><td><strong>Rôles</strong></td><td>Administrateur · Réception · Personnel soins</td></tr>
-<tr><td><strong>Modules</strong></td><td>8 modules fonctionnels</td></tr>
-<tr><td><strong>Application</strong></td><td>https://springgreen-cheetah-495703.hostingersite.com/</td></tr>
-<tr><td><strong>État</strong></td><td>Démonstrateur avancé, multi-tenant, prêt pour la démonstration</td></tr>
-</tbody></table>
-<h3><span class="n">1.2</span>Ce que le produit fait</h3>
+<div class="sec-head">
+  <div class="sec-kicker">Vue d'ensemble</div>
+  <div class="abstract">Anaros Beauty Lounge est un logiciel de gestion pour institut de beauté : onboarding guidé, agenda par employé, clientes, catalogue de prestations, équipe et rôles. Un vrai serveur Node.js porte les règles métier et les agrégations.</div>
+</div>
+
+<h3><span class="n">1.1</span>Fiche d'identité du produit</h3>
+<table class="tbl">
+  <tbody>
+    <tr><td style="width:34%"><strong>Nom affiché dans l'application</strong></td><td>Anaros Beauty Lounge</td></tr>
+    <tr><td><strong>Nature</strong></td><td>Application web complète : front React + API Express + base PostgreSQL</td></tr>
+    <tr><td><strong>Métier couvert</strong></td><td>Gestion d'institut de beauté : rendez-vous, clientes, prestations, équipe</td></tr>
+    <tr><td><strong>Périmètre fonctionnel</strong></td><td>Onboarding, tableau de bord, agenda, rendez-vous, clientes, catalogue, équipe, planning personnel, journal d'activité</td></tr>
+    <tr><td><strong>Devise</strong></td><td>Configurable à l'inscription — dirham marocain (MAD) dans le jeu de démonstration</td></tr>
+    <tr><td><strong>Stack</strong></td><td>React · Vite · TypeScript · Tailwind CSS · shadcn/ui · FullCalendar · TanStack Query · Express · Drizzle ORM · PostgreSQL</td></tr>
+    <tr><td><strong>Hébergement</strong></td><td>Hostinger — application Node.js servie par Passenger : <span class="mono">springgreen-cheetah-495703.hostingersite.com</span></td></tr>
+    <tr><td><strong>Persistance</strong></td><td>PostgreSQL, accès via Drizzle ORM ; sessions et utilisateur courant stockés côté navigateur</td></tr>
+    <tr><td><strong>Authentification</strong></td><td>E-mail et mot de passe, vérifiés en base — sans hachage dans la version analysée</td></tr>
+    <tr><td><strong>Base de données</strong></td><td>7 tables : <span class="mono">profiles, services_categories, services, staff_skills, clients, appointments, tenants</span></td></tr>
+    <tr><td><strong>Rôles</strong></td><td>4 niveaux : superadmin, admin, reception, staff</td></tr>
+    <tr><td><strong>Volumétrie</strong></td><td>14 écrans analysés · 7 tables · 4 rôles · 4 étapes d'onboarding · 3 vues d'agenda</td></tr>
+    <tr><td><strong>État</strong></td><td>Application convaincante et utilisable pour un institut — sécurité et isolation multi-salons à traiter avant commercialisation</td></tr>
+  </tbody>
+</table>
+
+<h3><span class="n">1.2</span>Chiffres clés</h3>
+<div class="kpis">
+  <div class="kpi"><div class="n">14</div><div class="l">écrans couverts par l'analyse</div></div>
+  <div class="kpi"><div class="n">7</div><div class="l">tables dans le schéma de données</div></div>
+  <div class="kpi"><div class="n">4</div><div class="l">rôles utilisateurs distincts</div></div>
+  <div class="kpi"><div class="n">4</div><div class="l">étapes d'onboarding à la création</div></div>
+  <div class="kpi"><div class="n">5</div><div class="l">statuts de rendez-vous suivis</div></div>
+  <div class="kpi"><div class="n">3</div><div class="l">vues d'agenda : jour, semaine, employé</div></div>
+</div>
+
+<h3><span class="n">1.3</span>Ce que le produit fait — et ce qu'il ne fait pas</h3>
 <div class="grid2">
-<div class="card"><h4 style="color:#127a58">Livré</h4><ul class="ticks">
-<li>Onboarding en 4 étapes avec tarifs et durées par catégorie.</li>
-<li>Rendez-vous avec vue jour/semaine/mois, conflits gérés.</li>
-<li>Fiches clients avec historique des visites.</li>
-<li>Catalogue de prestations par catégorie, prix et durée.</li>
-<li>Gestion d'équipe et compétences par service.</li>
-<li>Planning personnel par employé.</li>
-<li>Tableau de bord (CA du jour, CA du mois, RDV, top prestations).</li>
-<li>Multi-tenant avec isolation complète.</li>
-<li>Journal d'activité chronologique.</li>
-</ul></div>
-<div class="card"><h4 style="color:#a83a55">Hors périmètre</h4><ul class="cross">
-<li>Paiement en ligne et facturation.</li>
-<li>SMS / rappels automatiques aux clients.</li>
-<li>Application mobile native.</li>
-<li>Gestion de stock de produits.</li>
-<li>Comptabilité et export comptable.</li>
-<li>Site de réservation en ligne pour les clients.</li>
-</ul></div>
+  <div class="card">
+    <h4 style="color:#127a58">Périmètre réellement livré</h4>
+    <ul class="ticks">
+      <li>Créer un centre en quatre étapes guidées, sans intervention technique.</li>
+      <li>Générer automatiquement un mot de passe pour chaque employé créé.</li>
+      <li>Tenir un agenda par employé, avec couleur et filtrage des compétences.</li>
+      <li>Créer un rendez-vous en trois choix : cliente, employé, prestation.</li>
+      <li>Gérer les clientes, leurs coordonnées, leurs notes et leur historique.</li>
+      <li>Organiser un catalogue par catégories, avec prix et durées.</li>
+      <li>Offrir à chaque employé une vue journalière de ses rendez-vous.</li>
+      <li>Afficher un tableau de bord agrégé côté serveur.</li>
+      <li>Journaliser les actions dans un flux chronologique.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4 style="color:#a83a55">Hors périmètre de cette version</h4>
+    <ul class="cross">
+      <li>Hachage des mots de passe et sessions signées.</li>
+      <li>Isolation réelle des données par institut (tenant).</li>
+      <li>Détection des chevauchements de rendez-vous.</li>
+      <li>Caisse, encaissement, ticket et TVA.</li>
+      <li>Forfaits, packs, promotions et cartes de fidélité.</li>
+      <li>Rappels SMS / WhatsApp et réservation en ligne.</li>
+      <li>Stock de produits et consommables.</li>
+      <li>Photos avant / après et gestion des consentements.</li>
+    </ul>
+  </div>
 </div>
 
+<div class="callout">
+  <span class="t">Lecture honnête</span>
+  Le produit raconte très bien le quotidien d'un institut et l'expérience d'interface est soignée. Deux faiblesses empêchent aujourd'hui de le vendre à plusieurs salons : les mots de passe sont comparés en clair et les requêtes ne filtrent pas par institut. Ce sont des chantiers de quelques semaines, pas des refontes.
+</div>
+
+<!-- ============================ 02 CONTEXTE ============================ -->
 <h2 class="sec">02 · Contexte et problème métier</h2>
-<div class="sec-head"><div class="sec-kicker">Pourquoi ce produit existe</div><div class="abstract">Les instituts de beauté gèrent encore rendez-vous, clients et équipe avec des agendas papier et des outils dispersés.</div></div>
-<p>Un institut type réunit un gérant, une réception et plusieurs esthéticiennes. Les rendez-vous se prennent par téléphone, les clients sont notés sur des fiches, le planning est un agenda partagé et le chiffre d'affaires se calcule en fin de mois. Les doubles réservations, les oublis et la perte de clients fidèles sont le quotidien.</p>
-<h3><span class="n">2.1</span>Cinq douleurs, cinq réponses</h3>
-<table class="tbl"><thead><tr><th>Douleur</th><th>Conséquence</th><th>Réponse Anaros</th></tr></thead><tbody>
-<tr><td><strong>Agenda papier</strong></td><td>Doubles réservations, oublis</td><td>Calendrier interactif avec gestion des conflits</td></tr>
-<tr><td><strong>Clients dispersés</strong></td><td>Pas d'historique, pas de fidélisation</td><td>Fiche client complète avec historique</td></tr>
-<tr><td><strong>Prestations non structurées</strong></td><td>Prix et durées variables</td><td>Catalogue par catégorie, prix et durée fixés</td></tr>
-<tr><td><strong>Équipe non coordonnée</strong></td><td>Mauvaise affectation des soins</td><td>Compétences par service, planning personnel</td></tr>
-<tr><td><strong>Pas de vision d'activité</strong></td><td>Chiffre d'affaires inconnu</td><td>Tableau de bord avec CA jour/mois et top prestations</td></tr>
-</tbody></table>
+<div class="sec-head">
+  <div class="sec-kicker">Pourquoi ce produit existe</div>
+  <div class="abstract">Un institut de beauté vit d'un planning bien rempli et de clientes qui reviennent. Le carnet papier et la messagerie ne tiennent pas la charge dès la deuxième employée.</div>
+</div>
 
+<h3><span class="n">2.1</span>Les douleurs du terrain</h3>
+<table class="tbl">
+  <thead><tr><th style="width:26%">Douleur</th><th>Manifestation concrète</th><th style="width:30%">Réponse apportée</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Planning dispersé</strong></td><td>Un carnet par employée, des rendez-vous notés sur WhatsApp, des trous et des doublons.</td><td>Agenda unique par employé, avec couleur et vue semaine.</td></tr>
+    <tr><td><strong>Prestation mal affectée</strong></td><td>Une esthéticienne se voit confier un soin qu'elle ne pratique pas.</td><td>Filtrage des prestations par compétence de l'employé.</td></tr>
+    <tr><td><strong>Clientes oubliées</strong></td><td>Aucun historique : impossible de savoir ce qui a été fait la dernière fois.</td><td>Fiche cliente avec notes et historique des rendez-vous.</td></tr>
+    <tr><td><strong>Tarifs inconsistants</strong></td><td>Le prix d'un soin varie selon qui répond au téléphone.</td><td>Catalogue centralisé avec prix et durée par prestation.</td></tr>
+    <tr><td><strong>Mise en route technique</strong></td><td>Un logiciel générique demande des jours de paramétrage avant le premier rendez-vous.</td><td>Onboarding en quatre étapes, centre opérationnel le jour même.</td></tr>
+  </tbody>
+</table>
+
+<h3><span class="n">2.2</span>La promesse</h3>
+<p class="lead">Ouvrir la journée, voir qui vient, qui s'en occupe, pour quelle prestation et à quel prix. Puis laisser chaque employée consulter son planning et clôturer ses rendez-vous, sans repasser par la gérante.</p>
+
+<h3><span class="n">2.3</span>Principes de conception</h3>
+<div class="grid3">
+  <div class="card"><h4>Le geste avant la donnée</h4><p>Chaque écran répond à une action immédiate : prendre un rendez-vous, clôturer une prestation, ajouter une employée.</p></div>
+  <div class="card"><h4>Une couleur par personne</h4><p>La couleur d'un employé le suit dans le menu, l'agenda et les fiches. C'est le repère de lecture d'un planning chargé.</p></div>
+  <div class="card"><h4>Chacun son périmètre</h4><p>Le menu s'adapte au rôle : une employée ne voit pas la gestion de l'équipe, la réception voit l'agenda et les clientes.</p></div>
+</div>
+
+<!-- ============================ 03 ROLES ============================ -->
 <h2 class="sec">03 · Utilisateurs et rôles</h2>
-<div class="sec-head"><div class="sec-kicker">À qui s'adresse le produit</div><div class="abstract">Trois rôles avec accès différenciés.</div></div>
-<table class="tbl"><thead><tr><th>Rôle</th><th>Objectif</th><th>Accès</th></tr></thead><tbody>
-<tr><td><strong>Administrateur (gérant)</strong></td><td>Piloter l'institut</td><td>Utilisateurs, prestations, catégories, compétences, dashboard, journal</td></tr>
-<tr><td><strong>Réception</strong></td><td>Gérer le flux clients</td><td>Rendez-vous, clients, agenda</td></tr>
-<tr><td><strong>Personnel soins</strong></td><td>Réaliser les soins</td><td>Son planning personnel, ses rendez-vous</td></tr>
-</tbody></table>
+<div class="sec-head">
+  <div class="sec-kicker">Qui utilise l'outil, et avec quels droits</div>
+  <div class="abstract">Quatre rôles structurent l'application : superadmin, admin, réception et personnel. Le menu latéral s'adapte au rôle connecté.</div>
+</div>
 
+<h3><span class="n">3.1</span>Personas</h3>
+<table class="tbl">
+  <thead><tr><th style="width:20%">Persona</th><th style="width:24%">Usage principal</th><th>Écrans fréquents</th><th style="width:20%">Besoin dominant</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Gérante / admin</strong></td><td>Piloter l'institut</td><td>Tableau de bord, agenda, prestations, équipe</td><td>Voir le chiffre d'affaires et la charge</td></tr>
+    <tr><td><strong>Réception</strong></td><td>Accueillir et prendre les rendez-vous</td><td>Agenda, clientes, rendez-vous</td><td>Placer la bonne cliente au bon créneau</td></tr>
+    <tr><td><strong>Employée / staff</strong></td><td>Exécuter les prestations</td><td>Mon planning</td><td>Savoir qui vient et à quelle heure</td></tr>
+    <tr><td><strong>Super-admin</strong></td><td>Administrer la plateforme</td><td>Utilisateurs, paramètres</td><td>Gérer les comptes et les centres</td></tr>
+  </tbody>
+</table>
+
+<h3><span class="n">3.2</span>Matrice des droits</h3>
+<table class="tbl compact">
+  <thead><tr><th>Capacité</th><th>Superadmin</th><th>Admin</th><th>Réception</th><th>Staff</th></tr></thead>
+  <tbody>
+    <tr><td>Tableau de bord</td><td>Oui</td><td>Oui</td><td>Oui</td><td>Non</td></tr>
+    <tr><td>Agenda complet</td><td>Oui</td><td>Oui</td><td>Oui</td><td>Non</td></tr>
+    <tr><td>Mon planning</td><td>Oui</td><td>Oui</td><td>Oui</td><td>Oui</td></tr>
+    <tr><td>Créer un rendez-vous</td><td>Oui</td><td>Oui</td><td>Oui</td><td>Selon configuration</td></tr>
+    <tr><td>Gérer les clientes</td><td>Oui</td><td>Oui</td><td>Oui</td><td>Non</td></tr>
+    <tr><td>Catalogue et tarifs</td><td>Oui</td><td>Oui</td><td>Lecture</td><td>Lecture</td></tr>
+    <tr><td>Gérer l'équipe et les rôles</td><td>Oui</td><td>Oui</td><td>Non</td><td>Non</td></tr>
+    <tr><td>Journal d'activité</td><td>Oui</td><td>Oui</td><td>Non</td><td>Non</td></tr>
+    <tr><td>Cloisonner par institut</td><td colspan="4" style="color:#a83a55">Non appliqué : les requêtes ne filtrent pas par tenant.</td></tr>
+  </tbody>
+</table>
+
+<div class="warn">
+  <span class="t">Écart entre le menu et l'API</span>
+  Le menu masque les écrans selon le rôle, ce qui donne une impression de cloisonnement. Mais les routes API ne vérifient pas le rôle ni l'institut de l'appelant : un appel direct peut lire ou modifier les données d'un autre centre. Le filtrage doit être déplacé côté serveur.
+</div>
+
+<!-- ============================ 04 CARTOGRAPHIE ============================ -->
 <h2 class="sec">04 · Cartographie fonctionnelle</h2>
-<div class="sec-head"><div class="sec-kicker">Vue système</div><div class="abstract">Huit modules, trois rôles, multi-tenant.</div></div>
-<table class="tbl"><thead><tr><th>#</th><th>Module</th><th>Maturité</th></tr></thead><tbody>
-<tr><td>01</td><td><strong>Authentification &amp; rôles</strong></td><td><span class="tag em">Complet</span></td></tr>
-<tr><td>02</td><td><strong>Tableau de bord</strong></td><td><span class="tag em">Complet</span></td></tr>
-<tr><td>03</td><td><strong>Calendrier &amp; rendez-vous</strong></td><td><span class="tag em">Complet</span></td></tr>
-<tr><td>04</td><td><strong>Gestion des clients</strong></td><td><span class="tag em">Complet</span></td></tr>
-<tr><td>05</td><td><strong>Catalogue de prestations</strong></td><td><span class="tag em">Complet</span></td></tr>
-<tr><td>06</td><td><strong>Équipe &amp; compétences</strong></td><td><span class="tag em">Complet</span></td></tr>
-<tr><td>07</td><td><strong>Mon planning personnel</strong></td><td><span class="tag em">Complet</span></td></tr>
-<tr><td>08</td><td><strong>Multi-tenant &amp; utilisateurs</strong></td><td><span class="tag em">Complet</span></td></tr>
-</tbody></table>
-<p class="note">Plus : journal d'activité chronologique et onboarding en 4 étapes (compte, centre, catégories avec tarifs/durées, équipe).</p>
+<div class="sec-head">
+  <div class="sec-kicker">Vue d'ensemble des modules</div>
+  <div class="abstract">Neuf modules, dont un parcours d'inscription qui conditionne tous les autres. La navigation latérale les expose selon le rôle.</div>
+</div>
 
-<h2 class="sec">05 · Analyse module par module</h2>
-<div class="sec-head"><div class="sec-kicker">Spécification fonctionnelle détaillée</div><div class="abstract">Huit modules : objectif, fonctions, données, limites.</div></div>
+<h3><span class="n">4.1</span>Navigation</h3>
+<table class="tbl compact">
+  <thead><tr><th style="width:22%">Entrée de menu</th><th style="width:24%">Route</th><th>Rôle dans le flux</th><th style="width:18%">Table principale</th></tr></thead>
+  <tbody>
+    <tr><td>Tableau de bord</td><td class="mono">/dashboard</td><td>CA du jour, RDV, classements</td><td>agrégats</td></tr>
+    <tr><td>Agenda</td><td class="mono">/calendar</td><td>Planning par employé et prise de rendez-vous</td><td class="mono">appointments</td></tr>
+    <tr><td>Mon planning</td><td class="mono">/my-schedule</td><td>Vue terrain de l'employé</td><td class="mono">appointments</td></tr>
+    <tr><td>Clientes</td><td class="mono">/clients</td><td>Fiches, notes, historique</td><td class="mono">clients</td></tr>
+    <tr><td>Prestations</td><td class="mono">/services</td><td>Catalogue, catégories, prix, durées</td><td class="mono">services</td></tr>
+    <tr><td>Utilisateurs</td><td class="mono">/users</td><td>Équipe, rôles, couleurs, compétences</td><td class="mono">profiles</td></tr>
+    <tr><td>Journal d'activité</td><td class="mono">/activity-log</td><td>Trace chronologique des actions</td><td class="mono">activity_logs</td></tr>
+    <tr><td>Connexion</td><td class="mono">/login</td><td>Porte d'entrée</td><td class="mono">profiles</td></tr>
+    <tr><td>Inscription</td><td class="mono">/register</td><td>Onboarding en quatre étapes</td><td>toutes</td></tr>
+  </tbody>
+</table>
 
-<div class="mod-head"><div class="id">MODULE 01</div><h3>Authentification &amp; rôles</h3><div class="tagline">Sécuriser l'accès à l'institut</div><div class="tags"><span class="tag cy">Auth</span><span class="tag">Rôles</span><span class="tag em">Complet</span></div></div>
-<p>Connexion par email et mot de passe. Trois rôles distincts avec accès différencié. L'administrateur gère les utilisateurs, prestations, catégories et compétences.</p>
-<div class="duo"><div><h4>Fonctions</h4><ul class="ticks"><li>Connexion email + mot de passe.</li><li>Trois rôles : Admin, Réception, Personnel.</li><li>Accès différencié par module.</li><li>Création, modification, désactivation de comptes.</li><li>Réinitialisation de mot de passe.</li><li>Onboarding en 4 étapes lors de la création du centre.</li></ul></div>
-<div><h4>Données</h4><ul class="ticks"><li>Utilisateur : email, mot de passe hashé, rôle, centre.</li><li>Centre : nom, description, devise (MAD), heures ouverture/fermeture.</li><li>Multi-tenant : isolation complète par centre.</li></ul></div></div>
-
-<div class="mod-head"><div class="id">MODULE 02</div><h3>Tableau de bord</h3><div class="tagline">La journée de l'institut en un écran</div><div class="tags"><span class="tag">KPI</span><span class="tag em">Complet</span></div></div>
-<p>Vue synthétique de l'activité du jour : rendez-vous à venir, statistiques de fréquentation, alertes. CA du jour, CA du mois, nombre de RDV du jour, top des prestations.</p>
-
-<div class="mod-head"><div class="id">MODULE 03</div><h3>Calendrier &amp; rendez-vous</h3><div class="tagline">Zéro double réservation</div><div class="tags"><span class="tag cy">FullCalendar</span><span class="tag">CRUD</span><span class="tag em">Complet</span></div></div>
-<p>Vue jour, semaine et mois. Prise de rendez-vous avec choix du service, du client, du membre du personnel et du créneau. Gestion des conflits. Modification et annulation.</p>
-<div class="duo"><div><h4>Fonctions</h4><ul class="ticks"><li>Vue jour / semaine / mois (FullCalendar).</li><li>Création de RDV avec service, client, employé, créneau.</li><li>Détection des conflits (pas de double réservation).</li><li>Modification et annulation.</li><li>Sélection de l'employé via liste déroulante.</li></ul></div>
-<div><h4>Données</h4><ul class="ticks"><li>RDV : client, prestation, employé, date/heure début et fin, statut.</li><li>Conflit si même employé ou même cabine sur créneau chevauchant.</li></ul></div></div>
-
-<div class="mod-head"><div class="id">MODULE 04</div><h3>Gestion des clients</h3><div class="tagline">Un dossier client, pas un carnet d'adresses</div><div class="tags"><span class="tag">CRUD</span><span class="tag">Historique</span><span class="tag em">Complet</span></div></div>
-<p>Fiche client complète : nom, téléphone, email, historique des visites et des prestations reçues. Recherche rapide par nom ou téléphone.</p>
-
-<div class="mod-head"><div class="id">MODULE 05</div><h3>Catalogue de prestations</h3><div class="tagline">Structurer l'offre de l'institut</div><div class="tags"><span class="tag">CRUD</span><span class="tag">Catégories</span><span class="tag em">Complet</span></div></div>
-<p>Liste des soins avec prix et durée, organisée par catégories (soins visage, corps, épilation, onglerie, etc.). Activation/désactivation. Onboarding : tarifs et durées par catégorie (ex. Soin visage hydratant 45 min — 60 MAD).</p>
-
-<div class="mod-head"><div class="id">MODULE 06</div><h3>Équipe &amp; compétences</h3><div class="tagline">Qui fait quoi</div><div class="tags"><span class="tag">Profils</span><span class="tag">Compétences</span><span class="tag em">Complet</span></div></div>
-<p>Profils du personnel (nom, photo, rôle). Compétences par service : chaque employé est associé aux prestations qu'il maîtrise. Affectation selon compétences et disponibilité.</p>
-
-<div class="mod-head"><div class="id">MODULE 07</div><h3>Mon planning personnel</h3><div class="tagline">Ma journée en un coup d'œil</div><div class="tags"><span class="tag">Planning</span><span class="tag em">Complet</span></div></div>
-<p>Vue personnelle pour chaque membre du personnel : ses rendez-vous assignés du jour et de la semaine, avec heure, client et prestation.</p>
-
-<div class="mod-head"><div class="id">MODULE 08</div><h3>Multi-tenant &amp; utilisateurs</h3><div class="tagline">Plusieurs instituts, une instance</div><div class="tags"><span class="tag">Multi-tenant</span><span class="tag">CRUD users</span><span class="tag em">Complet</span></div></div>
-<p>Plusieurs instituts coexistent avec isolation complète des données. Création, modification, désactivation de comptes. Attribution et changement de rôle. Journal d'activité chronologique.</p>
-
-<h2 class="sec">06 · Parcours utilisateurs</h2>
-<div class="sec-head"><div class="sec-kicker">Les gestes réels</div><div class="abstract">Trois parcours : onboarding, réception, personnel.</div></div>
-<h3><span class="n">6.1</span>Onboarding d'un nouvel institut</h3>
+<h3><span class="n">4.2</span>Cycle de vie d'un rendez-vous</h3>
 <div class="flow">
-<div class="step"><div class="n">ÉTAPE 1</div><div class="t">Compte</div><div class="d">Prénom, nom, téléphone, email, mot de passe.</div></div>
-<div class="step"><div class="n">ÉTAPE 2</div><div class="t">Centre</div><div class="d">Nom, description, devise (MAD), heures d'ouverture.</div></div>
-<div class="step"><div class="n">ÉTAPE 3</div><div class="t">Catégories &amp; tarifs</div><div class="d">Sélection des catégories, prix et durées par prestation.</div></div>
-<div class="step"><div class="n">ÉTAPE 4</div><div class="t">Équipe</div><div class="d">Ajout des membres, mot de passe auto-généré.</div></div>
+  <div class="step"><div class="n">01</div><div class="t">Cliente</div><div class="d">Créée ou retrouvée dans Clientes, avec téléphone et notes.</div></div>
+  <div class="step"><div class="n">02</div><div class="t">Créneau</div><div class="d">Clic sur l'agenda, choix de l'employé et de la prestation compatible.</div></div>
+  <div class="step"><div class="n">03</div><div class="t">Prestation</div><div class="d">Statut en attente puis confirmé, l'employé exécute et clôture.</div></div>
+  <div class="step"><div class="n">04</div><div class="t">Analyse</div><div class="d">Le tableau de bord agrège CA, volumes et fidélité.</div></div>
 </div>
-<h3><span class="n">6.2</span>Réception — prise de rendez-vous</h3>
-<p>La réception sélectionne un client, un service, un employé compétent et un créneau. Le système bloque les conflits. Le RDV apparaît dans l'agenda de l'employé.</p>
-<h3><span class="n">6.3</span>Personnel — consultation du planning</h3>
-<p>Chaque esthéticienne voit son planning du jour et de la semaine avec heure, client et prestation.</p>
 
-<h2 class="sec">07 · Modèle de données</h2>
-<div class="sec-head"><div class="sec-kicker">Structure de l'information</div><div class="abstract">Entités principales et isolation multi-tenant.</div></div>
-<table class="tbl"><thead><tr><th>Entité</th><th>Champs principaux</th><th>Contraintes</th></tr></thead><tbody>
-<tr><td><strong>Centre</strong></td><td class="mono">id, name, description, currency, openTime, closeTime</td><td>Multi-tenant root</td></tr>
-<tr><td><strong>User</strong></td><td class="mono">id, email, passwordHash, firstName, lastName, role, centreId</td><td>3 rôles</td></tr>
-<tr><td><strong>Client</strong></td><td class="mono">id, name, phone, email, centreId</td><td>Par centre</td></tr>
-<tr><td><strong>Prestation</strong></td><td class="mono">id, categoryId, name, price, duration, active, centreId</td><td>Par catégorie</td></tr>
-<tr><td><strong>Category</strong></td><td class="mono">id, name, centreId</td><td>Par centre</td></tr>
-<tr><td><strong>RendezVous</strong></td><td class="mono">id, clientId, prestationId, employeId, start, end, status, centreId</td><td>Pas de conflit employé/cabine</td></tr>
-<tr><td><strong>Competence</strong></td><td class="mono">employeId, prestationId</td><td>N-N</td></tr>
-<tr><td><strong>ActivityLog</strong></td><td class="mono">id, userId, action, timestamp, centreId</td><td>Chronologique</td></tr>
-</tbody></table>
-
-<h2 class="sec">08 · Architecture technique</h2>
-<div class="sec-head"><div class="sec-kicker">Comment c'est construit</div><div class="abstract">Full-stack TypeScript, séparation claire front/back, déployé sur Hostinger.</div></div>
-<div class="diagram">
-<div class="layer"><div class="k">Frontend</div><div class="v"><span class="pill hi">React</span><span class="pill">Vite</span><span class="pill">TypeScript</span><span class="pill">FullCalendar</span></div></div>
-<div class="layer"><div class="k">Backend</div><div class="v"><span class="pill wa">Express</span><span class="pill">Node.js</span><span class="pill">API REST</span><span class="pill">Zod validation</span></div></div>
-<div class="layer"><div class="k">Données</div><div class="v"><span class="pill">PostgreSQL</span><span class="pill">Drizzle ORM</span><span class="pill">Multi-tenant</span></div></div>
-<div class="layer"><div class="k">Auth</div><div class="v"><span class="pill">Email + mot de passe</span><span class="pill">Rôles</span><span class="pill">Sessions</span></div></div>
-<div class="layer"><div class="k">Déploiement</div><div class="v"><span class="pill hi">Hostinger Node.js</span></div></div>
+<div class="callout">
+  <span class="t">Un schéma simple, presque trop</span>
+  Trois tables portent l'essentiel : <span class="mono">profiles</span> (l'équipe), <span class="mono">clients</span> (les clientes) et <span class="mono">appointments</span> (le rendez-vous). Le catalogue vit à côté. Toute la valeur produit tient dans la qualité de la jonction entre ces quatre objets.
 </div>
-<h3><span class="n">8.1</span>Stack</h3>
-<table class="tbl compact"><thead><tr><th>Dépendance</th><th>Rôle</th></tr></thead><tbody>
-<tr><td>React + Vite</td><td>Interface utilisateur</td></tr>
-<tr><td>Express + Node.js</td><td>API REST</td></tr>
-<tr><td>PostgreSQL + Drizzle ORM</td><td>Persistance relationnelle</td></tr>
-<tr><td>Zod</td><td>Validation des données</td></tr>
-<tr><td>FullCalendar</td><td>Agenda interactif</td></tr>
-</tbody></table>
 
-<h2 class="sec">09 · Design system</h2>
-<div class="sec-head"><div class="sec-kicker">Identité visuelle</div><div class="abstract">Thème sombre avec accents rose et ambre, typographie Inter.</div></div>
-<p>Palette rose (#f472b6) et ambre (#fbbf24) sur fond sombre. Typographie Inter. Composants : cartes en verre, badges, modules avec bordure colorée. Responsive mobile-first.</p>
+<!-- ============================ 05 MODULES ============================ -->
+<h2 class="sec">05 · Analyse module par module</h2>
+<div class="sec-head">
+  <div class="sec-kicker">Spécification fonctionnelle détaillée</div>
+  <div class="abstract">Chaque module est décrit par son objectif, ses fonctions réelles, ses champs, ses règles et ses limites constatées dans la version déployée.</div>
+</div>
 
-<h2 class="sec">10 · Sécurité et conformité</h2>
-<div class="sec-head"><div class="sec-kicker">Ce qui est protégé</div><div class="abstract">Authentification par rôle, isolation multi-tenant, données personnelles.</div></div>
+<!-- MODULE 1 -->
+<div class="mod-head">
+  <div class="id">MODULE 01</div>
+  <h3>Tableau de bord</h3>
+  <div class="tagline">La journée en quatre chiffres</div>
+  <div class="tags"><span class="tag cy">Dashboard</span><span class="tag">KPI</span><span class="tag am">Fidélité</span></div>
+</div>
+<p><strong>Objectif.</strong> Donner à la gérante une lecture immédiate de l'activité : ce qui a été encaissé aujourd'hui et ce mois-ci, combien de rendez-vous sont prévus, quelles prestations marchent et quelle cliente compte le plus.</p>
+<h4>Fonctions</h4>
 <ul class="ticks">
-<li>Authentification email + mot de passe avec hashage.</li>
-<li>Trois rôles avec accès différencié.</li>
-<li>Isolation complète des données par centre (multi-tenant).</li>
-<li>Sessions serveur avec cookies sécurisés.</li>
-<li>Validation Zod côté client et serveur.</li>
+  <li>Chiffre d'affaires du jour et du mois, formatés dans la devise du centre.</li>
+  <li>Nombre de rendez-vous du jour.</li>
+  <li>Classement des prestations les plus demandées.</li>
+  <li>Classement des employés les plus actifs.</li>
+  <li>Mise en avant de la cliente « dorée », celle qui a le plus dépensé.</li>
 </ul>
-<div class="warn"><span class="t">Vigilance</span>Le mot de passe généré automatiquement pour le personnel doit être changé à la première connexion. Aucune politique de conservation des données personnelles (RGPD / loi 09-08) n'est formalisée.</div>
+<h4>Règles de calcul</h4>
+<table class="tbl compact">
+  <thead><tr><th>Indicateur</th><th>Source</th><th>Règle</th></tr></thead>
+  <tbody>
+    <tr><td>CA du jour</td><td class="mono">appointments + services</td><td>Somme des prix des rendez-vous du jour dont le statut vaut terminé.</td></tr>
+    <tr><td>CA du mois</td><td class="mono">appointments + services</td><td>Même règle sur le mois calendaire courant.</td></tr>
+    <tr><td>Rendez-vous du jour</td><td class="mono">appointments</td><td>Nombre de rendez-vous dont la date de début tombe aujourd'hui.</td></tr>
+    <tr><td>Cliente dorée</td><td class="mono">clients + appointments</td><td>Cliente dont la somme des prestations terminées est la plus élevée.</td></tr>
+  </tbody>
+</table>
+<div class="verdict"><strong>Verdict.</strong> Module réussi : les agrégations sont faites côté serveur, donc cohérentes et rapides. Il manque une période sélectionnable et une comparaison avec le mois précédent.</div>
 
-<h2 class="sec">11 · Audit de maturité</h2>
-<div class="sec-head"><div class="sec-kicker">Ce qui est fini</div><div class="abstract">Huit modules, tous fonctionnels.</div></div>
-<table class="tbl"><thead><tr><th>Module</th><th>Note</th><th>État</th></tr></thead><tbody>
-<tr><td>Authentification &amp; rôles</td><td><strong>4/5</strong></td><td><span class="tag em">Complet</span></td></tr>
-<tr><td>Tableau de bord</td><td><strong>4/5</strong></td><td><span class="tag em">Complet</span></td></tr>
-<tr><td>Calendrier &amp; RDV</td><td><strong>4.5/5</strong></td><td><span class="tag em">Complet</span></td></tr>
-<tr><td>Gestion clients</td><td><strong>4/5</strong></td><td><span class="tag em">Complet</span></td></tr>
-<tr><td>Catalogue prestations</td><td><strong>4/5</strong></td><td><span class="tag em">Complet</span></td></tr>
-<tr><td>Équipe &amp; compétences</td><td><strong>4/5</strong></td><td><span class="tag em">Complet</span></td></tr>
-<tr><td>Planning personnel</td><td><strong>4/5</strong></td><td><span class="tag em">Complet</span></td></tr>
-<tr><td>Multi-tenant</td><td><strong>4.5/5</strong></td><td><span class="tag em">Complet</span></td></tr>
-</tbody></table>
-<div class="kpis" style="grid-template-columns:repeat(4,1fr)">
-<div class="kpi"><div class="n">4.1<span style="font-size:9pt">/5</span></div><div class="l">maturité moyenne</div></div>
-<div class="kpi"><div class="n">8<span style="font-size:9pt">/8</span></div><div class="l">modules complets</div></div>
-<div class="kpi"><div class="n">3</div><div class="l">rôles utilisateurs</div></div>
-<div class="kpi"><div class="n">Multi</div><div class="l">tenant</div></div>
+<!-- MODULE 2 -->
+<div class="mod-head">
+  <div class="id">MODULE 02</div>
+  <h3>Agenda par employé</h3>
+  <div class="tagline">Le planning qui remplace le carnet papier</div>
+  <div class="tags"><span class="tag cy">FullCalendar</span><span class="tag">Ressources</span><span class="tag">Compétences</span></div>
+</div>
+<p><strong>Objectif.</strong> Voir la semaine par personne, repérer les trous et poser un rendez-vous sans quitter l'agenda.</p>
+<h4>Fonctions</h4>
+<ul class="ticks">
+  <li>Vues jour et semaine, navigation précédent / suivant / aujourd'hui.</li>
+  <li>Une ressource par employé, avec sa couleur dédiée.</li>
+  <li>Filtre sur un membre de l'équipe.</li>
+  <li>Création d'un rendez-vous par clic sur un créneau.</li>
+  <li>Prestations filtrées selon les compétences de l'employé sélectionné.</li>
+</ul>
+<h4>Règles</h4>
+<table class="tbl compact">
+  <tbody>
+    <tr><td style="width:30%"><strong>Affectation</strong></td><td>Un rendez-vous appartient à un employé et à une prestation ; la durée affichée est celle de la prestation.</td></tr>
+    <tr><td><strong>Couleur</strong></td><td>La couleur de l'événement est celle de l'employé, ce qui rend la lecture par personne immédiate.</td></tr>
+    <tr><td><strong>Compétences</strong></td><td>La liste des prestations proposées est restreinte à celles que l'employé sait réaliser.</td></tr>
+    <tr><td><strong>Chevauchement</strong></td><td>Aucun contrôle : deux rendez-vous peuvent occuper le même employé au même moment.</td></tr>
+  </tbody>
+</table>
+<div class="warn">
+  <span class="t">Risque opérationnel</span>
+  L'absence de détection de chevauchement est le défaut le plus coûteux pour un institut : deux clientes peuvent être convoquées à la même heure pour la même employée. La règle est simple à écrire (intervalle fermé sur l'employé) et doit figurer en phase 1.
 </div>
 
-<h2 class="sec">12 · Feuille de route</h2>
-<div class="sec-head"><div class="sec-kicker">Évolutions possibles</div><div class="abstract">Améliorations pour passer à l'échelle.</div></div>
-<table class="tbl compact"><thead><tr><th>Phase</th><th>Livrables</th></tr></thead><tbody>
-<tr><td><strong>Phase 1</strong></td><td>Paiement en ligne, facturation, rappels SMS, site de réservation client.</td></tr>
-<tr><td><strong>Phase 2</strong></td><td>Application mobile native, gestion de stock produits, comptabilité.</td></tr>
-<tr><td><strong>Phase 3</strong></td><td>Multi-site avancé, analytics prédictifs, intégrations tierces.</td></tr>
-</tbody></table>
+<!-- MODULE 3 -->
+<div class="mod-head">
+  <div class="id">MODULE 03</div>
+  <h3>Prise de rendez-vous</h3>
+  <div class="tagline">Cliente, employé, prestation : trois choix</div>
+  <div class="tags"><span class="tag cy">Rendez-vous</span><span class="tag">Filtrage</span><span class="tag em">Statuts</span></div>
+</div>
+<p><strong>Objectif.</strong> Poser un rendez-vous en moins de trente secondes, au comptoir, avec la cliente devant soi.</p>
+<h4>Fonctions</h4>
+<ul class="ticks">
+  <li>Recherche de la cliente par nom ou téléphone, ou création à la volée.</li>
+  <li>Sélection de l'employé, puis de la prestation compatible.</li>
+  <li>Date, heure de début et heure de fin préremplies à partir du créneau cliqué.</li>
+  <li>Statuts : en attente, confirmé, terminé, annulé, non présent.</li>
+  <li>Note libre sur le rendez-vous.</li>
+</ul>
+<h4>Dictionnaire de champs — <span class="mono">appointments</span></h4>
+<table class="tbl compact">
+  <thead><tr><th style="width:26%">Champ</th><th style="width:14%">Type</th><th>Contenu</th></tr></thead>
+  <tbody>
+    <tr><td class="mono">client_id</td><td>uuid</td><td>Cliente concernée</td></tr>
+    <tr><td class="mono">staff_id</td><td>uuid</td><td>Employé affecté</td></tr>
+    <tr><td class="mono">service_id</td><td>uuid</td><td>Prestation réservée</td></tr>
+    <tr><td class="mono">start_time</td><td>timestamp</td><td>Début du rendez-vous</td></tr>
+    <tr><td class="mono">end_time</td><td>timestamp</td><td>Fin calculée à partir de la durée</td></tr>
+    <tr><td class="mono">status</td><td>énumération</td><td>pending · confirmed · completed · cancelled · no_show</td></tr>
+    <tr><td class="mono">notes</td><td>texte</td><td>Précisions, préférences, incident</td></tr>
+  </tbody>
+</table>
+<div class="verdict"><strong>Verdict.</strong> Le parcours est fluide et bien pensé. Il manque l'anti-chevauchement, la possibilité de déplacer un rendez-vous par glisser-déposer et l'envoi d'une confirmation à la cliente.</div>
 
-<h2 class="sec">13 · Exploitation et déploiement</h2>
-<div class="sec-head"><div class="sec-kicker">Faire tourner le produit</div><div class="abstract">Hébergement Node.js sur Hostinger, HTTPS actif.</div></div>
-<table class="tbl compact"><tbody>
-<tr><td style="width:30%"><strong>Domaine</strong></td><td>springgreen-cheetah-495703.hostingersite.com</td></tr>
-<tr><td><strong>Type</strong></td><td>Node.js (Express + React + PostgreSQL)</td></tr>
-<tr><td><strong>Base de données</strong></td><td>PostgreSQL (Hostinger)</td></tr>
-<tr><td><strong>HTTPS</strong></td><td>Actif</td></tr>
-</tbody></table>
+<!-- MODULE 4 -->
+<div class="mod-head">
+  <div class="id">MODULE 04</div>
+  <h3>Clientes</h3>
+  <div class="tagline">Une fiche, un historique, zéro oubli</div>
+  <div class="tags"><span class="tag cy">Clients</span><span class="tag">Historique</span><span class="tag">Notes</span></div>
+</div>
+<p><strong>Objectif.</strong> Retrouver une cliente, son numéro, ses préférences et la dernière prestation réalisée, pour reprendre la conversation au bon endroit.</p>
+<h4>Fonctions</h4>
+<ul class="ticks">
+  <li>Liste et recherche par nom ou téléphone.</li>
+  <li>Fiche avec nom, téléphone, e-mail et notes libres.</li>
+  <li>Historique des rendez-vous de la cliente.</li>
+  <li>Indicateurs de fréquence et de montant cumulé.</li>
+  <li>Création rapide depuis la prise de rendez-vous.</li>
+</ul>
+<h4>Dictionnaire de champs — <span class="mono">clients</span></h4>
+<table class="tbl compact">
+  <thead><tr><th style="width:26%">Champ</th><th style="width:14%">Type</th><th>Contenu</th></tr></thead>
+  <tbody>
+    <tr><td class="mono">first_name / last_name</td><td>texte</td><td>Identité de la cliente</td></tr>
+    <tr><td class="mono">phone</td><td>texte</td><td>Numéro principal, utilisé pour la recherche</td></tr>
+    <tr><td class="mono">email</td><td>texte</td><td>Adresse facultative</td></tr>
+    <tr><td class="mono">notes</td><td>texte long</td><td>Allergies, préférences, produits utilisés</td></tr>
+    <tr><td class="mono">tenant_id</td><td>uuid</td><td>Institut de rattachement — présent, non filtré</td></tr>
+  </tbody>
+</table>
+<div class="verdict"><strong>Verdict.</strong> Bonne base. Manquent l'import d'un fichier existant, la fusion de doublons et un indicateur de consentement pour les rappels.</div>
 
-<h2 class="sec">14 · Guide d'intégration vidéo</h2>
-<div class="sec-head"><div class="sec-kicker">Production</div><div class="abstract">Vidéo Canva déjà intégrée dans la page descriptive.</div></div>
-<p>La page descriptive contient un iframe Canva 16:9. URL d'embed : <span class="mono">https://www.canva.com/design/DAHZ8FhK-Ic/Sw0AtsdB-8w26iPa5Qr0Tw/watch?embed</span>. Pour remplacer, modifier l'attribut <span class="mono">src</span> de l'iframe dans la section vidéo.</p>
+<!-- MODULE 5 -->
+<div class="mod-head">
+  <div class="id">MODULE 05</div>
+  <h3>Catalogue de prestations</h3>
+  <div class="tagline">Des prix justes, des durées réalistes</div>
+  <div class="tags"><span class="tag cy">Services</span><span class="tag">Tarifs</span><span class="tag">Durées</span></div>
+</div>
+<p><strong>Objectif.</strong> Centraliser ce que l'institut propose, à quel prix et en combien de temps, pour que l'agenda et le chiffre d'affaires reposent sur la même référence.</p>
+<h4>Fonctions</h4>
+<ul class="ticks">
+  <li>Catégories de services : onglerie, manucure, pédicure, hammam, massage, soins du visage, épilation, coiffure.</li>
+  <li>Prestations rattachées à une catégorie, avec prix et durée en minutes.</li>
+  <li>Création et modification sans quitter la page.</li>
+  <li>Liste détaillée groupée par catégorie.</li>
+  <li>Sélection des catégories puis réglage des prix pendant l'onboarding.</li>
+</ul>
+<h4>Dictionnaire de champs — <span class="mono">services</span></h4>
+<table class="tbl compact">
+  <thead><tr><th style="width:26%">Champ</th><th style="width:14%">Type</th><th>Contenu</th></tr></thead>
+  <tbody>
+    <tr><td class="mono">category_id</td><td>uuid</td><td>Catégorie de rattachement</td></tr>
+    <tr><td class="mono">name</td><td>texte</td><td>Nom commercial de la prestation</td></tr>
+    <tr><td class="mono">price</td><td>numérique</td><td>Prix dans la devise du centre</td></tr>
+    <tr><td class="mono">duration_minutes</td><td>entier</td><td>Durée utilisée par l'agenda</td></tr>
+    <tr><td class="mono">tenant_id</td><td>uuid</td><td>Institut de rattachement</td></tr>
+  </tbody>
+</table>
+<div class="verdict"><strong>Verdict.</strong> Module complet et lisible. Il manque les promotions, les forfaits multi-prestations et la TVA, qui viendront avec la caisse.</div>
+<!-- MODULE 6 -->
+<div class="mod-head">
+  <div class="id">MODULE 06</div>
+  <h3>Équipe &amp; rôles</h3>
+  <div class="tagline">Chacun voit ce qui le concerne</div>
+  <div class="tags"><span class="tag cy">RBAC</span><span class="tag">Équipe</span><span class="tag">Compétences</span></div>
+</div>
+<p><strong>Objectif.</strong> Constituer l'équipe, attribuer un rôle et des compétences, et donner à chaque personne un repère visuel constant dans l'agenda.</p>
+<h4>Fonctions</h4>
+<ul class="ticks">
+  <li>Liste des membres avec rôle, profession, téléphone et couleur.</li>
+  <li>Création d'un employé avec mot de passe généré automatiquement.</li>
+  <li>Attribution des compétences, qui filtrent les prestations assignables.</li>
+  <li>Menu latéral adapté au rôle connecté.</li>
+  <li>Activation / désactivation d'un compte.</li>
+</ul>
+<h4>Dictionnaire de champs — <span class="mono">profiles</span></h4>
+<table class="tbl compact">
+  <thead><tr><th style="width:26%">Champ</th><th style="width:14%">Type</th><th>Contenu</th></tr></thead>
+  <tbody>
+    <tr><td class="mono">email</td><td>texte</td><td>Identifiant de connexion</td></tr>
+    <tr><td class="mono">password</td><td>texte</td><td>Mot de passe — stocké et comparé en clair dans la version analysée</td></tr>
+    <tr><td class="mono">first_name / last_name</td><td>texte</td><td>Identité affichée</td></tr>
+    <tr><td class="mono">role</td><td>énumération</td><td>superadmin · admin · reception · staff</td></tr>
+    <tr><td class="mono">color_code</td><td>texte</td><td>Couleur de l'employé dans l'agenda</td></tr>
+    <tr><td class="mono">profession</td><td>texte</td><td>Métier déclaré (esthéticienne, coiffeuse…)</td></tr>
+    <tr><td class="mono">tenant_id</td><td>uuid</td><td>Institut de rattachement</td></tr>
+  </tbody>
+</table>
+<div class="warn">
+  <span class="t">Point bloquant identifié</span>
+  La connexion compare le mot de passe saisi au mot de passe stocké (<span class="mono">eq(profiles.password, password)</span>). Aucun hachage, aucun sel, aucune rotation. Toute personne ayant accès à la base lit les mots de passe de l'équipe. C'est le premier chantier de la phase 1.
+</div>
 
-<h2 class="sec">15 · Annexes</h2>
-<div class="sec-head"><div class="sec-kicker">Références</div><div class="abstract">Captures et glossaire.</div></div>
-<h3><span class="n">15.1</span>Captures (14 écrans)</h3>
+<!-- MODULE 7 -->
+<div class="mod-head">
+  <div class="id">MODULE 07</div>
+  <h3>Mon planning</h3>
+  <div class="tagline">La vue terrain de l'employé</div>
+  <div class="tags"><span class="tag cy">Staff</span><span class="tag">Jour</span><span class="tag em">Actions</span></div>
+</div>
+<p><strong>Objectif.</strong> Donner à chaque employée une vue simple de sa journée, avec les compteurs utiles et les actions de fin de prestation.</p>
+<h4>Fonctions</h4>
+<ul class="ticks">
+  <li>Navigation jour précédent / suivant / aujourd'hui.</li>
+  <li>Compteurs : total, en attente, confirmés, terminés.</li>
+  <li>Passage d'un rendez-vous en « terminé » en un clic.</li>
+  <li>Annulation et ajout d'une note après le passage de la cliente.</li>
+  <li>Affichage de la cliente, de la prestation et de l'horaire.</li>
+</ul>
+<div class="verdict"><strong>Verdict.</strong> Excellent choix produit : c'est la vue qui fait réellement adopter l'outil par l'équipe. Il manque une vue semaine personnelle et un mode hors ligne.</div>
+
+<!-- MODULE 8 -->
+<div class="mod-head">
+  <div class="id">MODULE 08</div>
+  <h3>Journal d'activité</h3>
+  <div class="tagline">Savoir qui a fait quoi, et quand</div>
+  <div class="tags"><span class="tag cy">Journal</span><span class="tag">Traçabilité</span><span class="tag">Audit</span></div>
+</div>
+<p><strong>Objectif.</strong> Offrir une trace lisible des mouvements de la journée : création d'un rendez-vous, changement de statut, ajout d'une cliente.</p>
+<h4>Fonctions</h4>
+<ul class="ticks">
+  <li>Flux chronologique horodaté des actions.</li>
+  <li>Accès depuis le tableau de bord et le menu.</li>
+  <li>Lecture réservée aux rôles autorisés.</li>
+  <li>Base pour un futur audit plus fin.</li>
+</ul>
+<div class="verdict"><strong>Verdict.</strong> Utile mais encore jeune : pas de filtre par utilisateur, par type d'action ou par période, pas d'export et pas de politique de rétention. À consolider avant d'en faire un argument de conformité.</div>
+
+<!-- MODULE 9 -->
+<div class="mod-head">
+  <div class="id">MODULE 09</div>
+  <h3>Inscription &amp; connexion</h3>
+  <div class="tagline">Quatre étapes pour ouvrir le salon</div>
+  <div class="tags"><span class="tag cy">Onboarding</span><span class="tag">Auth</span><span class="tag am">Mot de passe généré</span></div>
+</div>
+<p><strong>Objectif.</strong> Permettre à une gérante de créer son centre et son équipe sans assistance, puis de se connecter simplement.</p>
+<h4>Fonctions</h4>
+<ul class="ticks">
+  <li>Étape 1 : compte propriétaire (prénom, nom, téléphone, e-mail, mot de passe).</li>
+  <li>Étape 2 : informations du centre (nom, description, devise, horaires).</li>
+  <li>Étape 3 : sélection des catégories, puis prix et durées des prestations.</li>
+  <li>Étape 4 : ajout de l'équipe, avec mot de passe généré (<span class="mono">prenom123</span>).</li>
+  <li>Connexion par e-mail et mot de passe, session conservée dans le navigateur.</li>
+</ul>
+<div class="verdict"><strong>Verdict.</strong> Le parcours est la meilleure idée du produit : il transforme un paramétrage rébarbatif en conversation guidée. Le point faible est la génération de mots de passe prévisibles, à remplacer par une invitation.</div>
+
+<!-- ============================ 06 PARCOURS ============================ -->
+<h2 class="sec">06 · Parcours utilisateurs</h2>
+<div class="sec-head">
+  <div class="sec-kicker">Le flux réel, écran par écran</div>
+  <div class="abstract">Cinq parcours structurent l'usage : mise en service, accueil, réservation, exécution et fidélisation. Chacun est décrit par ses étapes et ses points de friction.</div>
+</div>
+
+<h3><span class="n">6.1</span>Mise en service — le premier jour</h3>
+<table class="tbl compact">
+  <thead><tr><th style="width:8%">Étape</th><th style="width:22%">Écran</th><th>Action</th><th style="width:26%">Résultat attendu</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>Inscription · étape 1</td><td>Saisir l'identité du propriétaire et choisir son mot de passe.</td><td>Compte gérant créé.</td></tr>
+    <tr><td>2</td><td>Inscription · étape 2</td><td>Nommer le centre, choisir la devise et les horaires.</td><td>Cadre horaire de l'agenda défini.</td></tr>
+    <tr><td>3</td><td>Inscription · étape 3</td><td>Cocher les catégories, puis régler prix et durées.</td><td>Catalogue opérationnel.</td></tr>
+    <tr><td>4</td><td>Inscription · étape 4</td><td>Ajouter les employés et leur profession.</td><td>Équipe créée, mots de passe générés.</td></tr>
+    <tr><td>5</td><td>Agenda</td><td>Poser un premier rendez-vous de test.</td><td>Le centre est réellement en service.</td></tr>
+  </tbody>
+</table>
+<p class="note">Friction : les mots de passe générés doivent être communiqués à la main. Une invitation par e-mail ou un QR code d'activation supprimerait cette étape.</p>
+
+<h3><span class="n">6.2</span>Accueil et réservation — le comptoir</h3>
+<div class="flow">
+  <div class="step"><div class="n">01</div><div class="t">Identifier</div><div class="d">Rechercher la cliente par téléphone ; la créer si elle vient pour la première fois.</div></div>
+  <div class="step"><div class="n">02</div><div class="t">Choisir</div><div class="d">Sélectionner l'employé disponible, puis la prestation qu'il sait réaliser.</div></div>
+  <div class="step"><div class="n">03</div><div class="t">Poser</div><div class="d">Cliquer sur le créneau ; les horaires et la durée se remplissent.</div></div>
+  <div class="step"><div class="n">04</div><div class="t">Confirmer</div><div class="d">Le rendez-vous apparaît dans l'agenda et dans le planning de l'employé.</div></div>
+</div>
+
+<h3><span class="n">6.3</span>Exécution — la journée de l'employée</h3>
+<ul class="ticks">
+  <li>Ouvrir <strong>Mon planning</strong> et lire les compteurs du jour.</li>
+  <li>Accueillir la cliente, vérifier la prestation et l'horaire.</li>
+  <li>À la fin du soin, passer le rendez-vous en « terminé ».</li>
+  <li>Ajouter une note : produit utilisé, réaction, préférence.</li>
+  <li>La note reste attachée à la cliente pour la prochaine visite.</li>
+</ul>
+
+<h3><span class="n">6.4</span>Pilotage — la semaine de la gérante</h3>
+<ul class="ticks">
+  <li>Consulter le <strong>Tableau de bord</strong> : CA du jour et du mois, rendez-vous prévus.</li>
+  <li>Lire les classements : prestations les plus demandées, employés les plus actifs.</li>
+  <li>Repérer la cliente « dorée » et les clientes à recontacter.</li>
+  <li>Ajuster le catalogue si une prestation ne se vend pas.</li>
+  <li>Vérifier le <strong>Journal d'activité</strong> en cas d'anomalie.</li>
+</ul>
+
+<!-- ============================ 07 MODELE DE DONNEES ============================ -->
+<h2 class="sec">07 · Modèle de données</h2>
+<div class="sec-head">
+  <div class="sec-kicker">Le socle</div>
+  <div class="abstract">Sept tables PostgreSQL, gérées par Drizzle ORM. Le schéma est propre et lisible ; il lui manque l'application effective du tenant et quelques entités du métier.</div>
+</div>
+
+<h3><span class="n">7.1</span>Vue d'ensemble</h3>
+<div class="diagram">
+  <div class="layer"><div class="k">Organisation</div><div class="v"><span class="pill wa">tenants</span> <span class="pill hi">profiles</span></div></div>
+  <div class="layer"><div class="k">Catalogue</div><div class="v"><span class="pill hi">services_categories</span> <span class="pill hi">services</span> <span class="pill">staff_skills</span></div></div>
+  <div class="layer"><div class="k">Activité</div><div class="v"><span class="pill hi">clients</span> <span class="pill wa">appointments</span></div></div>
+  <div class="layer"><div class="k">Relations</div><div class="v">tenants 1—N profiles · profiles 1—N appointments · clients 1—N appointments · services 1—N appointments · profiles N—N services via staff_skills</div></div>
+</div>
+
+<h3><span class="n">7.2</span>Dictionnaire des tables</h3>
+<table class="tbl compact">
+  <thead><tr><th style="width:22%">Table</th><th style="width:34%">Champs principaux</th><th>Rôle</th></tr></thead>
+  <tbody>
+    <tr><td><strong class="mono">tenants</strong></td><td>id, name, description, currency, opening_time, closing_time</td><td>Institut : cadre horaire et devise.</td></tr>
+    <tr><td><strong class="mono">profiles</strong></td><td>id, tenant_id, email, password, first_name, last_name, role, color_code, profession, is_active</td><td>Membres de l'équipe et compte gérant.</td></tr>
+    <tr><td><strong class="mono">services_categories</strong></td><td>id, tenant_id, name, icon, sort_order</td><td>Grandes familles de prestations.</td></tr>
+    <tr><td><strong class="mono">services</strong></td><td>id, tenant_id, category_id, name, price, duration_minutes, is_active</td><td>Catalogue tarifé et durées.</td></tr>
+    <tr><td><strong class="mono">staff_skills</strong></td><td>id, profile_id, service_id</td><td>Compétences : quelles prestations chaque employé peut réaliser.</td></tr>
+    <tr><td><strong class="mono">clients</strong></td><td>id, tenant_id, first_name, last_name, phone, email, notes</td><td>Fiches clientes.</td></tr>
+    <tr><td><strong class="mono">appointments</strong></td><td>id, tenant_id, client_id, staff_id, service_id, start_time, end_time, status, notes</td><td>Rendez-vous et statut d'exécution.</td></tr>
+  </tbody>
+</table>
+
+<h3><span class="n">7.3</span>Anomalies de modélisation</h3>
+<table class="tbl compact">
+  <thead><tr><th style="width:30%">Constat</th><th>Conséquence</th><th style="width:26%">Correction recommandée</th></tr></thead>
+  <tbody>
+    <tr><td>Mot de passe en clair dans <span class="mono">profiles</span></td><td>Fuite immédiate en cas d'accès à la base ou d'export</td><td>Hacher avec bcrypt ou argon2, supprimer la colonne en clair</td></tr>
+    <tr><td><span class="mono">tenant_id</span> présent mais jamais utilisé en filtre</td><td>Un centre voit les données de tous les autres</td><td>Propager le tenant dans chaque requête et ajouter les contrôles serveur</td></tr>
+    <tr><td>Aucune contrainte d'unicité sur le créneau</td><td>Deux rendez-vous peuvent se superposer</td><td>Vérification applicative et contrainte d'exclusion PostgreSQL</td></tr>
+    <tr><td>Pas de table de paiement</td><td>Le CA est déduit du prix de la prestation, pas d'un encaissement</td><td>Ajouter <span class="mono">payments</span> avec montant, moyen et date</td></tr>
+    <tr><td>Pas de table de disponibilité</td><td>Les horaires du centre suffisent, pas les absences</td><td>Ajouter <span class="mono">staff_availability</span> et les congés</td></tr>
+    <tr><td>Journal d'activité non modélisé dans le schéma fourni</td><td>Traçabilité incomplète</td><td>Table <span class="mono">activity_logs</span> avec acteur, action, cible, horodatage</td></tr>
+  </tbody>
+</table>
+
+<h3><span class="n">7.4</span>Isolation des données</h3>
+<p>La colonne <span class="mono">tenant_id</span> existe sur les tables principales, ce qui montre que l'intention multi-instituts est présente dès la conception. Mais les fonctions d'accès lisent les tables sans clause de filtrage : le tenant est stocké, jamais appliqué. La correction est mécanique — ajouter <span class="mono">where eq(table.tenantId, currentTenant)</span> dans chaque requête — mais elle doit être systématique et testée, sinon elle donne une fausse impression de sécurité.</p>
+
+<!-- ============================ 08 ARCHITECTURE ============================ -->
+<h2 class="sec">08 · Architecture technique</h2>
+<div class="sec-head">
+  <div class="sec-kicker">Sous le capot</div>
+  <div class="abstract">Un front React compilé par Vite, une API Express qui porte les règles métier, une base PostgreSQL accédée par Drizzle. Le tout servi par Passenger sur un hébergement mutualisé.</div>
+</div>
+
+<h3><span class="n">8.1</span>Couches</h3>
+<div class="diagram">
+  <div class="layer"><div class="k">Frontend</div><div class="v"><span class="pill hi">React</span><span class="pill hi">Vite</span><span class="pill">TypeScript</span><span class="pill">Tailwind CSS</span><span class="pill">shadcn/ui</span><span class="pill">Wouter</span></div></div>
+  <div class="layer"><div class="k">Composants métier</div><div class="v"><span class="pill">FullCalendar</span><span class="pill">TanStack Query</span><span class="pill">react-hook-form</span><span class="pill">Zod</span><span class="pill">Recharts</span></div></div>
+  <div class="layer"><div class="k">API</div><div class="v"><span class="pill wa">Express</span><span class="pill wa">Node.js</span><span class="pill">REST</span><span class="pill">Drizzle ORM</span></div></div>
+  <div class="layer"><div class="k">Base</div><div class="v"><span class="pill wa">PostgreSQL</span><span class="pill">7 tables</span><span class="pill">Migrations Drizzle</span></div></div>
+  <div class="layer"><div class="k">Accès</div><div class="v"><span class="pill">4 rôles</span><span class="pill">Menu par rôle</span><span class="pill">Session navigateur</span><span class="pill">Thème clair / sombre</span></div></div>
+</div>
+
+<h3><span class="n">8.2</span>Routage</h3>
+<table class="tbl compact">
+  <thead><tr><th style="width:26%">Route</th><th>Écran</th><th style="width:24%">Accès</th></tr></thead>
+  <tbody>
+    <tr><td class="mono">/login</td><td>Connexion</td><td>Public</td></tr>
+    <tr><td class="mono">/register</td><td>Inscription en quatre étapes</td><td>Public</td></tr>
+    <tr><td class="mono">/dashboard</td><td>Tableau de bord</td><td>Admin, réception</td></tr>
+    <tr><td class="mono">/calendar</td><td>Agenda par employé</td><td>Admin, réception, staff</td></tr>
+    <tr><td class="mono">/my-schedule</td><td>Mon planning</td><td>Tous les rôles</td></tr>
+    <tr><td class="mono">/clients</td><td>Clientes</td><td>Admin, réception</td></tr>
+    <tr><td class="mono">/services</td><td>Catalogue</td><td>Admin, réception en lecture</td></tr>
+    <tr><td class="mono">/users</td><td>Équipe et rôles</td><td>Admin, superadmin</td></tr>
+    <tr><td class="mono">/activity-log</td><td>Journal d'activité</td><td>Admin, superadmin</td></tr>
+  </tbody>
+</table>
+
+<h3><span class="n">8.3</span>Performance et exploitation</h3>
+<div class="grid3">
+  <div class="card"><h4>Build</h4><p>Front compilé par Vite, API exécutée par Node dans le même hébergement. Passenger démarre l'application et sert les assets.</p></div>
+  <div class="card"><h4>Données</h4><p>TanStack Query met en cache les réponses de l'API et invalide après mutation. Les agrégations du dashboard sont calculées côté serveur.</p></div>
+  <div class="card"><h4>Limites</h4><p>Pas de file d'attente, pas de tâche planifiée, pas de cache serveur. Convient à un institut ; à revoir pour plusieurs centaines de rendez-vous par jour.</p></div>
+</div>
+
+<!-- ============================ 09 DESIGN ============================ -->
+<h2 class="sec">09 · Design system</h2>
+<div class="sec-head">
+  <div class="sec-kicker">Doux à l'œil, précis à l'usage</div>
+  <div class="abstract">L'esthétique d'institut est assumée : dégradés chauds, cartes arrondies, typographie lisible. Mais l'interface reste un outil : chaque action est à un clic, chaque statut a sa couleur.</div>
+</div>
+
+<h3><span class="n">9.1</span>Fondations</h3>
+<table class="tbl compact">
+  <thead><tr><th style="width:24%">Élément</th><th>Choix</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Primitives</strong></td><td>shadcn/ui au-dessus de Radix UI : dialogues, sélecteurs, calendriers, badges, onglets.</td></tr>
+    <tr><td><strong>Styles</strong></td><td>Tailwind CSS avec variables de thème ; mode clair et sombre.</td></tr>
+    <tr><td><strong>Iconographie</strong></td><td>Lucide React, cohérente avec les primitives.</td></tr>
+    <tr><td><strong>Typographie</strong></td><td>Inter pour le texte, titres en graisse forte, montants alignés à droite.</td></tr>
+    <tr><td><strong>Calendrier</strong></td><td>FullCalendar avec ressources, couleurs par employé, vues jour et semaine.</td></tr>
+    <tr><td><strong>Graphiques</strong></td><td>Recharts pour les classements et répartitions du tableau de bord.</td></tr>
+  </tbody>
+</table>
+
+<h3><span class="n">9.2</span>Langage visuel</h3>
+<table class="tbl compact">
+  <thead><tr><th style="width:26%">Rôle</th><th style="width:20%">Couleur</th><th>Usage</th></tr></thead>
+  <tbody>
+    <tr><td>Action principale</td><td style="color:#a83a55"><strong>Rose poudré</strong></td><td>Boutons de création, liens actifs, accents de marque</td></tr>
+    <tr><td>Chiffres clés</td><td style="color:#96630c"><strong>Or</strong></td><td>Montants, totaux, mise en avant de la cliente dorée</td></tr>
+    <tr><td>Information secondaire</td><td style="color:#6b4fa8"><strong>Violet</strong></td><td>Badges, notes, éléments de contexte</td></tr>
+    <tr><td>Succès</td><td style="color:#127a58"><strong>Vert</strong></td><td>Rendez-vous terminé, paiement validé</td></tr>
+    <tr><td>Alerte</td><td style="color:#a83a55"><strong>Rouge</strong></td><td>Annulation, absence, suppression</td></tr>
+  </tbody>
+</table>
+
+<h3><span class="n">9.3</span>Responsive et accessibilité</h3>
+<ul class="ticks">
+  <li>Navigation latérale repliable, menu plein écran sur mobile.</li>
+  <li>Agenda lisible sur tablette, priorité à la vue jour sur téléphone.</li>
+  <li>Composants Radix : navigation clavier et rôles ARIA corrects.</li>
+  <li>Contrastes à vérifier sur les badges roses en thème clair.</li>
+  <li>Zones tactiles à agrandir sur les actions de fin de prestation.</li>
+</ul>
+
+<!-- ============================ 10 ONBOARDING ============================ -->
+<h2 class="sec">10 · Onboarding et mise en service</h2>
+<div class="sec-head">
+  <div class="sec-kicker">Le meilleur atout du produit</div>
+  <div class="abstract">Quatre étapes, aucune formation, un centre opérationnel le jour même. Ce chapitre détaille ce qui est réellement créé à chaque étape.</div>
+</div>
+
+<h3><span class="n">10.1</span>Déroulé détaillé</h3>
+<table class="tbl">
+  <thead><tr><th style="width:10%">Étape</th><th style="width:24%">Écran</th><th>Données demandées</th><th style="width:26%">Ce qui est créé</th></tr></thead>
+  <tbody>
+    <tr><td><strong>1</strong></td><td>Compte propriétaire</td><td>Prénom, nom, téléphone, e-mail, mot de passe</td><td>Ligne <span class="mono">profiles</span> avec rôle admin</td></tr>
+    <tr><td><strong>2</strong></td><td>Informations du centre</td><td>Nom, description, devise, heure d'ouverture, heure de fermeture</td><td>Ligne <span class="mono">tenants</span></td></tr>
+    <tr><td><strong>3</strong></td><td>Catégories et tarifs</td><td>Catégories cochées, puis prix et durée de chaque prestation</td><td>Lignes <span class="mono">services_categories</span> et <span class="mono">services</span></td></tr>
+    <tr><td><strong>4</strong></td><td>Équipe</td><td>Prénom, nom, téléphone, profession</td><td>Lignes <span class="mono">profiles</span> avec mot de passe généré</td></tr>
+  </tbody>
+</table>
+
+<h3><span class="n">10.2</span>Génération des mots de passe</h3>
+<div class="code"><span class="c">// Comportement constaté à la création d'un employé</span>
+password = prenom.toLowerCase() + "123"
+<span class="c">// exemple : "amina123"</span>
+<span class="c">// stocké tel quel dans profiles.password, puis comparé en clair au login</span></div>
+<div class="warn">
+  <span class="t">Double problème</span>
+  Le mot de passe est <strong>prévisible</strong> (prénom + 123) et <strong>stocké en clair</strong>. Un employé peut deviner le mot de passe d'un collègue, et toute copie de la base expose l'ensemble des comptes. La correction attendue : mot de passe aléatoire à forte entropie, haché, et invitation à le changer à la première connexion.
+</div>
+
+<h3><span class="n">10.3</span>Reprise et interruption</h3>
+<p>Le parcours ne prévoit pas de sauvegarde d'étape : si la gérante ferme le navigateur à l'étape 3, elle doit recommencer. Une table de progression ou un brouillon côté serveur éviterait cette perte, fréquente en situation réelle.</p>
+
+<!-- ============================ 11 SECURITE ============================ -->
+<h2 class="sec">11 · Sécurité, données et conformité</h2>
+<div class="sec-head">
+  <div class="sec-kicker">Ce qui protège — et ce qui ne protège pas</div>
+  <div class="abstract">Deux failles structurantes : des mots de passe en clair et des sessions non signées. Elles doivent être traitées avant toute ouverture à un deuxième institut.</div>
+</div>
+
+<h3><span class="n">11.1</span>Surface d'attaque</h3>
+<table class="tbl compact">
+  <thead><tr><th style="width:26%">Point</th><th style="width:14%">État</th><th>Analyse</th></tr></thead>
+  <tbody>
+    <tr><td>Stockage des mots de passe</td><td><span class="tag ro">Critique</span></td><td>Comparaison directe en base, sans hachage ni sel.</td></tr>
+    <tr><td>Session</td><td><span class="tag ro">Faible</span></td><td>Utilisateur courant stocké dans le navigateur ; aucun jeton signé ne protège les appels API.</td></tr>
+    <tr><td>Autorisation</td><td><span class="tag am">Partielle</span></td><td>Menu filtré côté client, routes API non contrôlées.</td></tr>
+    <tr><td>Isolation</td><td><span class="tag ro">Absente</span></td><td><span class="mono">tenant_id</span> stocké mais jamais appliqué dans les requêtes.</td></tr>
+    <tr><td>Injections SQL</td><td><span class="tag em">Maîtrisé</span></td><td>Drizzle ORM et requêtes paramétrées : pas de concaténation observée.</td></tr>
+    <tr><td>Secrets</td><td><span class="tag am">À vérifier</span></td><td>Chaîne de connexion PostgreSQL à sortir du dépôt et à passer en variable d'environnement.</td></tr>
+    <tr><td>Données personnelles</td><td><span class="tag am">À cadrer</span></td><td>Nom, téléphone, e-mail, notes de soin : base légale, conservation et droit d'accès à documenter.</td></tr>
+    <tr><td>Sauvegarde</td><td><span class="tag am">À définir</span></td><td>Aucune procédure de sauvegarde et de restauration documentée.</td></tr>
+  </tbody>
+</table>
+
+<h3><span class="n">11.2</span>Recommandations prioritaires</h3>
+<ul class="ticks">
+  <li>Hacher les mots de passe avec bcrypt ou argon2 et supprimer la colonne en clair.</li>
+  <li>Émettre un jeton de session signé (JWT ou cookie httpOnly) et le vérifier sur chaque route.</li>
+  <li>Appliquer le filtre <span class="mono">tenant_id</span> dans toutes les requêtes, avec un test par table.</li>
+  <li>Contrôler le rôle côté serveur, pas seulement dans le menu.</li>
+  <li>Ajouter la détection de chevauchement à la création et à la modification d'un rendez-vous.</li>
+  <li>Documenter la conservation des données clientes et la procédure d'export / suppression.</li>
+</ul>
+
+<!-- ============================ 12 MATURITE ============================ -->
+<h2 class="sec">12 · Audit de maturité</h2>
+<div class="sec-head">
+  <div class="sec-kicker">Notation par module</div>
+  <div class="abstract">Échelle : <strong>Complet</strong> (utilisable tel quel), <strong>Fonctionnel</strong> (fonctionne, finitions manquantes), <strong>Partiel</strong> (parcours incomplet), <strong>Phase 2</strong> (non implémenté).</div>
+</div>
+
+<h3><span class="n">12.1</span>Notation</h3>
+<table class="tbl">
+  <thead><tr><th style="width:22%">Module</th><th style="width:14%">État</th><th>Ce qui fonctionne</th><th style="width:24%">Ce qui manque</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Onboarding</strong></td><td><span class="tag em">Complet</span></td><td>4 étapes, centre, catalogue, équipe</td><td>Reprise d'un parcours interrompu</td></tr>
+    <tr><td><strong>Tableau de bord</strong></td><td><span class="tag em">Complet</span></td><td>CA jour/mois, RDV, tops, cliente dorée</td><td>Périodes personnalisées, comparaison</td></tr>
+    <tr><td><strong>Agenda</strong></td><td><span class="tag em">Complet</span></td><td>Vues jour/semaine, ressource employé, création</td><td>Anti-chevauchement, glisser-déposer</td></tr>
+    <tr><td><strong>Clientes</strong></td><td><span class="tag em">Complet</span></td><td>CRUD, recherche, notes, historique</td><td>Import, fusion de doublons</td></tr>
+    <tr><td><strong>Prestations</strong></td><td><span class="tag em">Complet</span></td><td>Catégories, prix, durées, CRUD</td><td>Promotions, packs, TVA</td></tr>
+    <tr><td><strong>Équipe</strong></td><td><span class="tag em">Complet</span></td><td>Rôles, couleurs, compétences</td><td>Congés, pointage, disponibilités</td></tr>
+    <tr><td><strong>Mon planning</strong></td><td><span class="tag em">Complet</span></td><td>Vue jour, actions, notes</td><td>Vue semaine personnelle, hors ligne</td></tr>
+    <tr><td><strong>Journal d'activité</strong></td><td><span class="tag am">Fonctionnel</span></td><td>Chronologie des actions</td><td>Filtres, export, rétention</td></tr>
+    <tr><td><strong>Sécurité</strong></td><td><span class="tag ro">Partiel</span></td><td>Rôles et menu filtré</td><td>Hachage, sessions signées, contrôle API</td></tr>
+    <tr><td><strong>Multi-instituts</strong></td><td><span class="tag ro">Phase 2</span></td><td>Colonne tenant présente</td><td>Filtrage effectif, rôles par centre</td></tr>
+    <tr><td><strong>Caisse</strong></td><td><span class="tag ro">Phase 2</span></td><td>—</td><td>Paiements, tickets, TVA</td></tr>
+  </tbody>
+</table>
+
+<h3><span class="n">12.2</span>Dette technique</h3>
+<div class="grid2">
+  <div class="card">
+    <h4>Dette fonctionnelle</h4>
+    <ul class="cross">
+      <li>Mots de passe prévisibles et en clair.</li>
+      <li>Aucune détection de chevauchement.</li>
+      <li>Pas de caisse ni d'encaissement.</li>
+      <li>Pas de rappels ni de réservation en ligne.</li>
+      <li>Parcours d'onboarding non reprenable.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>Dette structurelle</h4>
+    <ul class="cross">
+      <li>Tenant stocké mais jamais filtré.</li>
+      <li>Autorisation uniquement côté client.</li>
+      <li>Pas de tests automatisés ni d'intégration continue.</li>
+      <li>Chaîne de connexion à externaliser.</li>
+      <li>Journal d'activité sans politique de rétention.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ============================ 13 ROADMAP ============================ -->
+<h2 class="sec">13 · Feuille de route</h2>
+<div class="sec-head">
+  <div class="sec-kicker">Trois phases, par ordre de valeur</div>
+  <div class="abstract">Phase 1 sécurise ce qui existe, phase 2 complète le métier, phase 3 ouvre le produit aux clientes et à plusieurs salons.</div>
+</div>
+
+<h3><span class="n">13.1</span>Phase 1 — Sécuriser (3 à 5 semaines)</h3>
+<table class="tbl compact">
+  <thead><tr><th style="width:34%">Livrable</th><th>Critère d'acceptation</th></tr></thead>
+  <tbody>
+    <tr><td>Hachage des mots de passe</td><td>Aucun mot de passe lisible en base ; les comptes existants sont migrés.</td></tr>
+    <tr><td>Sessions signées</td><td>Toute route API refuse une requête sans jeton valide ; test automatisé fourni.</td></tr>
+    <tr><td>Filtrage par tenant</td><td>Un utilisateur du centre A ne peut lire aucune ligne du centre B.</td></tr>
+    <tr><td>Contrôle de rôle serveur</td><td>Un compte staff ne peut pas appeler les routes d'administration.</td></tr>
+    <tr><td>Anti-chevauchement</td><td>Un rendez-vous qui chevauche un autre pour le même employé est refusé avec un message clair.</td></tr>
+  </tbody>
+</table>
+
+<h3><span class="n">13.2</span>Phase 2 — Enrichir (2 à 3 mois)</h3>
+<ul class="ticks">
+  <li>Caisse, paiements et tickets, avec TVA et moyens de paiement.</li>
+  <li>Forfaits, packs et promotions.</li>
+  <li>Rappels SMS / WhatsApp et confirmation de rendez-vous.</li>
+  <li>Photos avant / après et notes de soin structurées.</li>
+  <li>Stock de produits et consommables.</li>
+  <li>Disponibilités, congés et absences de l'équipe.</li>
+</ul>
+
+<h3><span class="n">13.3</span>Phase 3 — Ouvrir (3 à 6 mois)</h3>
+<ul class="ticks">
+  <li>Réservation en ligne pour les clientes.</li>
+  <li>Espace cliente : historique, fidélité, préférences.</li>
+  <li>Gestion de plusieurs salons pour un même propriétaire.</li>
+  <li>Application mobile et notifications push.</li>
+  <li>Statistiques par employé, par salon et par période.</li>
+</ul>
+
+<!-- ============================ 14 EXPLOITATION ============================ -->
+<h2 class="sec">14 · Exploitation et déploiement</h2>
+<div class="sec-head">
+  <div class="sec-kicker">Mettre en ligne et tenir en ligne</div>
+  <div class="abstract">Une application Node.js servie par Passenger : le déploiement est plus sensible qu'un site statique, car le processus et la base doivent être supervisés.</div>
+</div>
+
+<h3><span class="n">14.1</span>Environnements</h3>
+<table class="tbl compact">
+  <thead><tr><th style="width:22%">Environnement</th><th style="width:30%">Hébergement</th><th>Usage</th></tr></thead>
+  <tbody>
+    <tr><td>Production</td><td>Hostinger — Node.js / Passenger</td><td>Usage réel des instituts</td></tr>
+    <tr><td>Recette</td><td>Instance Node.js dédiée</td><td>Validation avant mise en production</td></tr>
+    <tr><td>Base</td><td>PostgreSQL</td><td>Une base par environnement recommandée</td></tr>
+  </tbody>
+</table>
+
+<h3><span class="n">14.2</span>Procédure de mise en production</h3>
+<ol style="font-size:9pt;line-height:1.7;padding-left:18px">
+  <li>Exécuter <span class="mono">npm run build</span> et vérifier l'absence d'erreur TypeScript.</li>
+  <li>Appliquer les migrations Drizzle dans l'ordre, avec sauvegarde préalable.</li>
+  <li>Vérifier les variables d'environnement : connexion PostgreSQL, secret de session, port.</li>
+  <li>Redémarrer l'application Passenger et contrôler les journaux au démarrage.</li>
+  <li>Tester la connexion, la création d'un rendez-vous et la clôture d'une prestation.</li>
+  <li>Vérifier que le menu correspond bien au rôle du compte de test.</li>
+</ol>
+
+<h3><span class="n">14.3</span>Checklist de production</h3>
+<ul class="chk">
+  <li>Mots de passe hachés, colonne en clair supprimée.</li>
+  <li>Sessions signées et routes API protégées.</li>
+  <li>Filtrage par tenant testé sur les 7 tables.</li>
+  <li>Sauvegarde PostgreSQL planifiée et restauration testée.</li>
+  <li>Chaîne de connexion et secret de session hors du dépôt.</li>
+  <li>Compte super-admin nominatif, mots de passe uniques.</li>
+  <li>Mentions légales et politique de confidentialité publiées.</li>
+  <li>Supervision : alerte si le processus Node ou la base ne répond plus.</li>
+</ul>
+
+<!-- ============================ 15 VIDEO ============================ -->
+<h2 class="sec">15 · Guide d'intégration de la vidéo</h2>
+<div class="sec-head">
+  <div class="sec-kicker">La démonstration en trois minutes</div>
+  <div class="abstract">La page descriptive réserve un cadre 16:9 prêt à recevoir une iframe. Ce chapitre fournit le storyboard et le script pour produire la vidéo.</div>
+</div>
+
+<h3><span class="n">15.1</span>Spécifications techniques</h3>
+<table class="tbl compact">
+  <tbody>
+    <tr><td style="width:30%"><strong>Format</strong></td><td>MP4 H.264, 1920 × 1080, 30 images/seconde</td></tr>
+    <tr><td><strong>Durée cible</strong></td><td>2 min 45 à 3 min 15</td></tr>
+    <tr><td><strong>Intégration</strong></td><td>Iframe 16:9 dans le bloc <span class="mono">.video-wrap</span>, attributs <span class="mono">allowfullscreen</span> et <span class="mono">loading="lazy"</span></td></tr>
+    <tr><td><strong>Audio</strong></td><td>Voix off française, musique instrumentale douce, sous-titres français</td></tr>
+    <tr><td><strong>Données</strong></td><td>Centre de démonstration uniquement, jamais de cliente réelle</td></tr>
+  </tbody>
+</table>
+
+<h3><span class="n">15.2</span>Storyboard</h3>
+<table class="tbl compact">
+  <thead><tr><th style="width:8%">Plan</th><th style="width:20%">Écran</th><th>Action filmée</th><th style="width:26%">Message</th></tr></thead>
+  <tbody>
+    <tr><td>01</td><td>Inscription · étape 1</td><td>Saisie du compte propriétaire</td><td>« Votre institut commence ici. »</td></tr>
+    <tr><td>02</td><td>Inscription · étape 2</td><td>Nom du centre, devise, horaires</td><td>« Le cadre se met en place. »</td></tr>
+    <tr><td>03</td><td>Inscription · étape 3</td><td>Sélection des catégories, puis prix et durées</td><td>« Votre catalogue, vos tarifs. »</td></tr>
+    <tr><td>04</td><td>Inscription · étape 4</td><td>Ajout de l'équipe</td><td>« Votre équipe est prête. »</td></tr>
+    <tr><td>05</td><td>Tableau de bord</td><td>CA du jour, rendez-vous, classements</td><td>« La journée en quatre chiffres. »</td></tr>
+    <tr><td>06</td><td>Agenda</td><td>Vue semaine par employé, couleurs</td><td>« Chaque personne a sa couleur. »</td></tr>
+    <tr><td>07</td><td>Prise de rendez-vous</td><td>Recherche cliente, choix employé, prestation</td><td>« Trois choix, trente secondes. »</td></tr>
+    <tr><td>08</td><td>Mon planning</td><td>Vue employé, passage en terminé, note</td><td>« L'équipe clôture elle-même. »</td></tr>
+    <tr><td>09</td><td>Catalogue</td><td>Liste par catégorie, édition d'un prix</td><td>« Un tarif unique pour tous. »</td></tr>
+    <tr><td>10</td><td>Équipe</td><td>Rôles, couleurs, compétences</td><td>« Chacun voit ce qui le concerne. »</td></tr>
+    <tr><td>11</td><td>Carton final</td><td>Logo Anaros et accroche</td><td>« L'institut tourne. La gérante respire. »</td></tr>
+  </tbody>
+</table>
+
+<h3><span class="n">15.3</span>Script voix off (extrait)</h3>
+<div class="code">« Un institut de beauté, c'est un planning, des clientes qui reviennent,
+et une équipe qui doit savoir où elle va.
+
+Anaros réunit les trois.
+
+Le centre se crée en quatre étapes. Le catalogue prend le prix
+et la durée de chaque soin. L'équipe entre avec sa couleur.
+
+Et le matin, il suffit d'ouvrir l'agenda : qui vient, avec qui,
+pour quel soin.
+
+Le soir, chaque employée clôture ses rendez-vous.
+La gérante, elle, regarde les chiffres. »</div>
+
+<!-- ============================ 16 ANNEXES ============================ -->
+<h2 class="sec">16 · Annexes</h2>
+<div class="sec-head">
+  <div class="sec-kicker">Références</div>
+  <div class="abstract">Routes, dépendances principales, inventaire des captures et glossaire métier.</div>
+</div>
+
+<h3><span class="n">16.1</span>Dépendances principales</h3>
+<table class="tbl compact">
+  <thead><tr><th style="width:34%">Paquet</th><th>Usage</th></tr></thead>
+  <tbody>
+    <tr><td class="mono">react / react-dom</td><td>Interface</td></tr>
+    <tr><td class="mono">vite</td><td>Build du front</td></tr>
+    <tr><td class="mono">typescript</td><td>Typage statique</td></tr>
+    <tr><td class="mono">tailwindcss</td><td>Styles utilitaires</td></tr>
+    <tr><td class="mono">@radix-ui/*</td><td>Primitives accessibles</td></tr>
+    <tr><td class="mono">@fullcalendar/*</td><td>Agenda et ressources</td></tr>
+    <tr><td class="mono">@tanstack/react-query</td><td>Cache et synchronisation des appels API</td></tr>
+    <tr><td class="mono">react-hook-form / zod</td><td>Formulaires et validation</td></tr>
+    <tr><td class="mono">recharts</td><td>Graphiques du tableau de bord</td></tr>
+    <tr><td class="mono">wouter</td><td>Routage front</td></tr>
+    <tr><td class="mono">express</td><td>API HTTP</td></tr>
+    <tr><td class="mono">drizzle-orm / drizzle-kit</td><td>Accès PostgreSQL et migrations</td></tr>
+    <tr><td class="mono">pg</td><td>Pilote PostgreSQL</td></tr>
+    <tr><td class="mono">lucide-react</td><td>Icônes</td></tr>
+  </tbody>
+</table>
+
+<h3><span class="n">16.2</span>Inventaire des captures</h3>
+<table class="tbl compact">
+  <thead><tr><th style="width:14%">N°</th><th>Écran</th></tr></thead>
+  <tbody>
+    <tr><td class="mono">01</td><td>Connexion / inscription — étape 1</td></tr>
+    <tr><td class="mono">02</td><td>Création du centre — étape 2</td></tr>
+    <tr><td class="mono">03</td><td>Création du centre — étape 3, catégories</td></tr>
+    <tr><td class="mono">04</td><td>Création du centre — étape 3, prix et durées</td></tr>
+    <tr><td class="mono">05</td><td>Création du centre — étape 4, équipe</td></tr>
+    <tr><td class="mono">06</td><td>Gestion des utilisateurs et des rôles</td></tr>
+    <tr><td class="mono">07</td><td>Catalogue des prestations</td></tr>
+    <tr><td class="mono">08</td><td>Journal d'activité</td></tr>
+    <tr><td class="mono">09</td><td>Agenda — vue par employé</td></tr>
+    <tr><td class="mono">10</td><td>Agenda — création d'un rendez-vous</td></tr>
+    <tr><td class="mono">11</td><td>Création d'une prestation</td></tr>
+    <tr><td class="mono">12</td><td>Prestations — liste détaillée par catégorie</td></tr>
+    <tr><td class="mono">13</td><td>Agenda — vue hebdomadaire</td></tr>
+    <tr><td class="mono">14</td><td>Tableau de bord</td></tr>
+  </tbody>
+</table>
+
+<h3><span class="n">16.3</span>Glossaire</h3>
+<table class="tbl compact">
+  <tbody>
+    <tr><td style="width:26%"><strong>Institut / centre</strong></td><td>Salon de beauté locataire du logiciel, représenté par un tenant.</td></tr>
+    <tr><td><strong>Tenant</strong></td><td>Identifiant d'isolation permettant de séparer les données de plusieurs instituts.</td></tr>
+    <tr><td><strong>Prestation</strong></td><td>Soin proposé au catalogue, avec un prix et une durée.</td></tr>
+    <tr><td><strong>Catégorie</strong></td><td>Famille de prestations : onglerie, hammam, massage, soins du visage…</td></tr>
+    <tr><td><strong>Compétence</strong></td><td>Association entre un employé et une prestation qu'il sait réaliser.</td></tr>
+    <tr><td><strong>Rendez-vous</strong></td><td>Réservation d'une prestation par une cliente auprès d'un employé, à un horaire donné.</td></tr>
+    <tr><td><strong>Mon planning</strong></td><td>Vue journalière personnelle de l'employé, avec ses actions de clôture.</td></tr>
+    <tr><td><strong>Cliente dorée</strong></td><td>Cliente ayant généré le plus de chiffre d'affaires sur la période analysée.</td></tr>
+    <tr><td><strong>RBAC</strong></td><td>Contrôle d'accès basé sur les rôles : superadmin, admin, réception, personnel.</td></tr>
+  </tbody>
+</table>
+
+<h3><span class="n">16.4</span>Captures de l'application</h3>
+<p class="small">Les quatorze captures ci-dessous proviennent de la version déployée. Elles illustrent le parcours d'inscription puis l'usage quotidien de l'institut.</p>
 <div class="gallery">
-<figure><img src="assets/01.jpg"><figcaption>01 · Connexion / Inscription</figcaption></figure>
-<figure><img src="assets/02.jpg"><figcaption>02 · Infos du centre</figcaption></figure>
-<figure><img src="assets/03.jpg"><figcaption>03 · Catégories de services</figcaption></figure>
-<figure><img src="assets/04.jpg"><figcaption>04 · Prix et durées</figcaption></figure>
-<figure><img src="assets/05.jpg"><figcaption>05 · Ajout de l'équipe</figcaption></figure>
-<figure><img src="assets/06.jpg"><figcaption>06 · Gestion des utilisateurs</figcaption></figure>
-<figure><img src="assets/07.jpg"><figcaption>07 · Catalogue prestations</figcaption></figure>
-<figure><img src="assets/08.jpg"><figcaption>08 · Journal d'activité</figcaption></figure>
-<figure><img src="assets/09.jpg"><figcaption>09 · Agenda par employé</figcaption></figure>
-<figure><img src="assets/10.jpg"><figcaption>10 · Création de RDV</figcaption></figure>
-<figure><img src="assets/11.jpg"><figcaption>11 · Création de prestation</figcaption></figure>
-<figure><img src="assets/12.jpg"><figcaption>12 · Prestations par catégorie</figcaption></figure>
-<figure><img src="assets/13.jpg"><figcaption>13 · Agenda hebdomadaire</figcaption></figure>
-<figure><img src="assets/14.jpg"><figcaption>14 · Tableau de bord</figcaption></figure>
+  <figure><img src="assets/01.jpg" alt="Inscription étape 1" /><figcaption>Inscription · étape 1 — compte propriétaire</figcaption></figure>
+  <figure><img src="assets/02.jpg" alt="Inscription étape 2" /><figcaption>Inscription · étape 2 — informations du centre</figcaption></figure>
+  <figure><img src="assets/03.jpg" alt="Inscription étape 3" /><figcaption>Inscription · étape 3 — catégories de services</figcaption></figure>
+  <figure><img src="assets/04.jpg" alt="Inscription étape 3 suite" /><figcaption>Inscription · étape 3 — prix et durées</figcaption></figure>
+  <figure><img src="assets/05.jpg" alt="Inscription étape 4" /><figcaption>Inscription · étape 4 — ajout de l'équipe</figcaption></figure>
+  <figure><img src="assets/06.jpg" alt="Utilisateurs" /><figcaption>Équipe — rôles et couleurs</figcaption></figure>
+  <figure><img src="assets/07.jpg" alt="Catalogue" /><figcaption>Catalogue — prestations par catégorie</figcaption></figure>
+  <figure><img src="assets/08.jpg" alt="Journal d'activité" /><figcaption>Journal d'activité — chronologie</figcaption></figure>
+  <figure><img src="assets/09.jpg" alt="Agenda par employé" /><figcaption>Agenda — vue par employé</figcaption></figure>
+  <figure><img src="assets/10.jpg" alt="Nouveau rendez-vous" /><figcaption>Agenda — création d'un rendez-vous</figcaption></figure>
+  <figure><img src="assets/11.jpg" alt="Nouvelle prestation" /><figcaption>Catalogue — création d'une prestation</figcaption></figure>
+  <figure><img src="assets/12.jpg" alt="Prestations détaillées" /><figcaption>Catalogue — liste détaillée par catégorie</figcaption></figure>
+  <figure><img src="assets/13.jpg" alt="Agenda semaine" /><figcaption>Agenda — vue hebdomadaire</figcaption></figure>
+  <figure><img src="assets/14.jpg" alt="Tableau de bord" /><figcaption>Tableau de bord — CA, RDV, classements</figcaption></figure>
 </div>
 
-<h3><span class="n">15.2</span>Glossaire</h3>
-<table class="tbl compact"><tbody>
-<tr><td><strong>RDV</strong></td><td>Rendez-vous.</td></tr>
-<tr><td><strong>Multi-tenant</strong></td><td>Plusieurs instituts isolés dans la même instance.</td></tr>
-<tr><td><strong>Prestation</strong></td><td>Soin proposé par l'institut avec prix et durée.</td></tr>
-<tr><td><strong>Compétence</strong></td><td>Association employé ↔ prestation maîtrisée.</td></tr>
-</tbody></table>
-
-<div style="margin-top:26px;border-top:2px solid #f0e3ec;padding-top:14px" class="small muted">
-<strong style="color:#0b1b33">Anaros Beauty Lounge — Spécification fonctionnelle et technique · v1.0 · 5 novembre 2026.</strong><br/>
-Application : https://springgreen-cheetah-495703.hostingersite.com/ · Captures : 14 écrans<br/>
-Document établi à partir du dossier produit et de l'application déployée. Données de démonstration.
+<div class="callout" style="margin-top:16px">
+  <span class="t">Traçabilité</span>
+  Document établi le 5 novembre 2026 à partir du code source de l'application, des routes, du schéma Drizzle et des écrans déployés sur <span class="mono">springgreen-cheetah-495703.hostingersite.com</span>. Les constats de sécurité cités (comparaison de mot de passe en clair, absence de filtrage tenant, absence de détection de chevauchement) proviennent de la lecture du code serveur.
 </div>
-</body></html>
+
+</body>
+</html>
